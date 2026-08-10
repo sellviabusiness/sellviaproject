@@ -46,7 +46,7 @@ flowchart TD
 
 Extends 06. Feature Flags Strategy's existing rollout pattern (`enabled_for_admin` → `rollout_percentage`) with an explicit beta cohort tier, matching the actual gating sequence requested:
 
-```
+```text
 enabled_for_admin (test it yourself first)
   → enabled_for_beta_cohort (Private Beta users, per 00. Product Roadmap's waitlist → beta invitation flow)
   → rollout_percentage: 5

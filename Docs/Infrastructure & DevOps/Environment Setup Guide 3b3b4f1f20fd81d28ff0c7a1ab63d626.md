@@ -22,7 +22,7 @@ Every environment needs its own instance/config of:
 
 ## Local
 
-```
+```text
 DATABASE_URL=<local Postgres or Supabase dev branch>
 ORY_KRATOS_URL=<local Kratos instance or Ory Network dev project>
 PADDLE_API_KEY=<test mode>
@@ -40,7 +40,7 @@ PAYMENT_MODE=test
 
 ## Staging
 
-```
+```text
 DATABASE_URL=<separate Supabase project/branch — sellvia_stage>
 ORY_KRATOS_URL=<separate Ory project>
 PADDLE_API_KEY=<test mode>
@@ -57,7 +57,7 @@ PAYMENT_MODE=test
 
 ## Production
 
-```
+```text
 DATABASE_URL=<Supabase prod, migrating to Neon per Architecture Decision Log>
 ORY_KRATOS_URL=<Ory Network prod project>
 PADDLE_API_KEY=<live mode>

@@ -15,11 +15,13 @@ Rule: **nobody assumes a shape, everybody checks/updates this file first.**
 ## 2. Standard response envelope
 
 Success:
+
 ```json
 { "data": { ... }, "error": null }
 ```
 
 Error:
+
 ```json
 { "data": null, "error": { "code": "NOT_FOUND", "message": "Product not found" } }
 ```
@@ -54,7 +56,7 @@ Backend adds a row **before or the same day** it starts an endpoint (status `pla
 ## 6. Error codes (append as they're introduced)
 
 | Code | Meaning |
-|---|---|
+| --- | --- |
 | `NOT_FOUND` | resource doesn't exist |
 | `VALIDATION_ERROR` | bad request body/params |
 | `UNAUTHORIZED` | missing/invalid token |

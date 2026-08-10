@@ -10,7 +10,7 @@ Nothing here requires custom-trained models or ML infrastructure. "AI" at this s
 
 ## Module Structure
 
-```
+```text
 ai_services/
   embeddings.py   → generates + stores embeddings (pgvector)
   matching.py     → creator↔campaign similarity ranking

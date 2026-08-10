@@ -6,14 +6,14 @@ The step-by-step conversion paths worth watching closely — built directly from
 
 ## Merchant Funnel
 
-```
+```text
 Waitlist joined → Account activated → Offer created → Campaign published
   → First application received → First application approved → First sale verified
 ```
 
 ## Creator Funnel
 
-```
+```text
 Waitlist joined → Account activated → First application submitted
   → First application approved → Link generated → Link shared (proxy: first click received)
   → First sale attributed → First payout received

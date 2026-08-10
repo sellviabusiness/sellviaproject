@@ -35,7 +35,7 @@ This is the same principle already required for Paddle-touching endpoints (07. A
 
 ## Job Schema
 
-```
+```text
 jobs
   id
   type              (e.g. "export_sales_report", "export_creator_earnings")

@@ -6,7 +6,7 @@ The single picture of how all of SellVia's pieces fit together — every other d
 
 ## High-Level Diagram
 
-```
+```text
                Cloudflare (DNS, CDN, DDoS)
                        ↓
                Next.js App (frontend + API routes)

@@ -12,7 +12,7 @@ Decouple *deploying* code from *releasing* it — the actual highest-leverage ri
 
 Given team size, a simple database-backed flags table is the right call over a paid service (LaunchDarkly, etc.) — same reasoning as every other "don't add a vendor before you need one" call made throughout this build:
 
-```
+```text
 feature_flags
   id
   key                 (e.g. "new_refund_clawback_logic")
@@ -49,7 +49,7 @@ A branch naming convention affects nothing about production risk once code is me
 
 Extends the rollout pattern with an explicit beta-user tier between Admin-testing and percentage rollout:
 
-```
+```text
 enabled_for_admin \u2192 enabled_for_beta_cohort \u2192 rollout_percentage (5 \u2192 100)
 ```
 

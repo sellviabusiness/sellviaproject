@@ -60,7 +60,7 @@ The routes above are the "what" — here's the "why" per group, so a route's pur
 
 **`POST /jobs/export` and friends** exist specifically so heavy operations never block a request cycle (02. Async Job Pattern & Idempotency) — this group's entire reason for existing is UX and reliability, not new business logic.
 
-## Open Questions
+## Open Questions (Update)
 
 None — rationale is now explicit per group rather than implied by the route list alone.
 

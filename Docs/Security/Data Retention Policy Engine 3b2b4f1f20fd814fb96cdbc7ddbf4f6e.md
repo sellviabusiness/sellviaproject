@@ -8,7 +8,7 @@ A configurable engine that enforces data retention per category, maps those peri
 
 Retention rules live in a `retention_policies` table, not scattered as hardcoded logic across the codebase — a policy change (once legal confirms real numbers) is a data update, not a code change or redeploy.
 
-```
+```text
 retention_policies
   id
   category            (e.g. "financial_records", "user_pii", "audit_logs")
@@ -42,7 +42,7 @@ A Celery job (02. Background Jobs) runs on a schedule (e.g. daily), walks every 
 
 Every retention sweep logs its own execution to a `retention_audit_log`:
 
-```
+```text
 retention_audit_log
   id
   policy_id           (FK -> retention_policies)

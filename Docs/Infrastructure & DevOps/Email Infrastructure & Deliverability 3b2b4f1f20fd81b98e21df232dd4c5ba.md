@@ -8,7 +8,7 @@ How email is organized, authenticated, monitored, and what actually gets sent �
 
 **Decided: separate sending subdomains of [wesellvia.com](http://wesellvia.com), not fully unrelated domains** — gets the requested reputation isolation between email types without losing brand recognition in the "From" address, which unrelated domains can actually cost you (an email from a domain that doesn't match your brand can itself look more suspicious to spam filters and recipients, working against the goal rather than for it).
 
-```
+```text
 mail.wesellvia.com     → transactional (receipts, payouts, password/security)
 news.wesellvia.com     → marketing (waitlist updates, product news)
 ```

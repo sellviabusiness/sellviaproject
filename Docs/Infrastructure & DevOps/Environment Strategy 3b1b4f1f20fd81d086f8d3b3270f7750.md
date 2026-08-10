@@ -21,7 +21,7 @@ Separating local development, staging, and production — directly from the earl
 
 ## Deployment Flow
 
-```
+```text
 feature/* branch → develop branch → Staging → main branch → Production
 ```
 

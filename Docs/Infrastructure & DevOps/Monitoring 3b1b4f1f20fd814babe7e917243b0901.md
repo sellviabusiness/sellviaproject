@@ -32,6 +32,6 @@ A hosted monitoring/alerting service (e.g. a standard APM/uptime tool) rather th
 
 **What it monitors:** application health endpoint, public marketing site, and can be extended to check Paddle/Ory Kratos/Supabase reachability specifically if a more granular "what exactly is down" signal is wanted later — starting with the core health check is sufficient for MVP.
 
-## Open Questions
+## Open Questions (Update)
 
 - None blocking — tool choice made; account setup is an implementation step, not a design decision.

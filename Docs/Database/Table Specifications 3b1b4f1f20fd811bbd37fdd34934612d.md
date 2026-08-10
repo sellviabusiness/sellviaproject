@@ -8,40 +8,40 @@ Field-by-field schema for every table — the literal thing a migration file wou
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | clerk_id | text, unique | maps to Clerk's user ID |
-| email | text, unique |  |
-| created_at / updated_at | timestamptz |  |
+| email | text, unique | |
+| created_at / updated_at | timestamptz | |
 
 ## merchant_profiles
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| user_id | uuid, FK → users |  |
-| business_name | text |  |
+| id | uuid, PK | |
+| user_id | uuid, FK → users | |
+| business_name | text | |
 | paddle_seller_id | text | Paddle seller account ID |
 
 ## creator_profiles
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| user_id | uuid, FK → users |  |
+| id | uuid, PK | |
+| user_id | uuid, FK → users | |
 | niche | text | fixed taxonomy per 02. Search Strategy |
-| audience_size | integer |  |
+| audience_size | integer | |
 | engagement_rate | numeric | see Domain Model's open question on self-reported vs. platform-calculated |
-| paddle_seller_id | text |  |
+| paddle_seller_id | text | |
 | wallet_balance_cents | integer | running accrued balance toward the $50 threshold |
 
 ## offers
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| merchant_profile_id | uuid, FK → merchant_profiles |  |
-| name | text |  |
-| price_cents | integer |  |
+| id | uuid, PK | |
+| merchant_profile_id | uuid, FK → merchant_profiles | |
+| name | text | |
+| price_cents | integer | |
 | currency | text | USD / EUR / GBP |
 | category | enum | digital / physical |
 
@@ -49,8 +49,8 @@ Field-by-field schema for every table — the literal thing a migration file wou
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| offer_id | uuid, FK → offers |  |
+| id | uuid, PK | |
+| offer_id | uuid, FK → offers | |
 | commission_rate | numeric | merchant-set, no platform bounds |
 | status | enum | draft / live / paused / ended |
 
@@ -58,9 +58,9 @@ Field-by-field schema for every table — the literal thing a migration file wou
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| campaign_id | uuid, FK → campaigns |  |
-| creator_profile_id | uuid, FK → creator_profiles |  |
+| id | uuid, PK | |
+| campaign_id | uuid, FK → campaigns | |
+| creator_profile_id | uuid, FK → creator_profiles | |
 | status | enum | pending / approved / rejected |
 | locked_commission_rate | numeric | snapshot of campaign.commission_rate at approval time (see State Machines' flagged reconciliation note — this field assumes "locked at approval" wins; revisit once that's settled) |
 
@@ -68,7 +68,7 @@ Field-by-field schema for every table — the literal thing a migration file wou
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | application_id | uuid, FK → applications, unique | one link per approved application |
 | slug | text, unique | e.g. "mia-glow" |
 
@@ -76,8 +76,8 @@ Field-by-field schema for every table — the literal thing a migration file wou
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| affiliate_link_id | uuid, FK → affiliate_links |  |
+| id | uuid, PK | |
+| affiliate_link_id | uuid, FK → affiliate_links | |
 | type | enum | click / add_to_cart / purchase |
 | occurred_at | timestamptz | used against the 30-day attribution window |
 
@@ -85,57 +85,57 @@ Field-by-field schema for every table — the literal thing a migration file wou
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | attribution_event_id | uuid, FK → attribution_events | the purchase-type event |
-| amount_cents | integer |  |
-| currency | text |  |
+| amount_cents | integer | |
+| currency | text | |
 | status | enum | pending / verified / refunded / disputed |
-| paddle_transaction_id | text |  |
+| paddle_transaction_id | text | |
 
 ## commissions
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| sale_id | uuid, FK → sales, unique |  |
-| creator_profile_id | uuid, FK → creator_profiles |  |
-| amount_cents | integer |  |
+| id | uuid, PK | |
+| sale_id | uuid, FK → sales, unique | |
+| creator_profile_id | uuid, FK → creator_profiles | |
+| amount_cents | integer | |
 | clawed_back | boolean, default false | set true if refund clawback applied (see Commission Engine) |
 
 ## platform_fees
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| sale_id | uuid, FK → sales, unique |  |
+| id | uuid, PK | |
+| sale_id | uuid, FK → sales, unique | |
 | amount_cents | integer | 2% of sale amount |
 
 ## payouts
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | recipient_type | enum | creator / merchant |
 | recipient_id | uuid | polymorphic — references creator_profiles or merchant_profiles depending on recipient_type |
-| amount_cents | integer |  |
+| amount_cents | integer | |
 | status | enum | pending / processing / paid / failed |
-| paddle_payout_id | text |  |
+| paddle_payout_id | text | |
 
 ## payout_commissions (join table)
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| payout_id | uuid, FK → payouts |  |
+| payout_id | uuid, FK → payouts | |
 | commission_id | uuid, FK → commissions | represents which sales are bundled into a given creator payout |
 
 ## notifications
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| user_id | uuid, FK → users |  |
+| id | uuid, PK | |
+| user_id | uuid, FK → users | |
 | type | text | sale_made / payout_threshold_reached / application_approved / etc. |
-| read_at | timestamptz, nullable |  |
+| read_at | timestamptz, nullable | |
 
 ## Open Questions
 
@@ -147,33 +147,33 @@ Field-by-field schema for every table — the literal thing a migration file wou
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | feature | enum | matching / screening / copy_assist |
-| tokens_in | integer |  |
-| tokens_out | integer |  |
+| tokens_in | integer | |
+| tokens_out | integer | |
 | cost_cents | integer | 0 for cache hits, per 11. Analytics → AI / Token Usage Tracking |
 | related_user_id | uuid, nullable | FK → users |
 | related_entity_type | text, nullable | e.g. "application", "campaign" |
-| created_at | timestamptz |  |
+| created_at | timestamptz | |
 
 ## infra_costs (manual-entry fallback for non-API-able costs)
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | category | text | e.g. "hosting", "clerk_subscription", "monitoring" |
-| amount_cents | integer |  |
+| amount_cents | integer | |
 | period_month | date | first-of-month, identifies which period this cost belongs to |
 | source | enum | api / manual |
 | entered_by | uuid, nullable | Admin user, if manually entered |
-| created_at | timestamptz |  |
+| created_at | timestamptz | |
 
 ## monthly_pnl_reports
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| period_month | date, unique |  |
+| id | uuid, PK | |
+| period_month | date, unique | |
 | revenue_cents | integer | sum of platform_fees for the period |
 | paddle_fees_cents | integer | pulled from Paddle Balance Transactions |
 | hosting_cost_cents | integer | from infra_costs |
@@ -181,7 +181,7 @@ Field-by-field schema for every table — the literal thing a migration file wou
 | other_cost_cents | integer | from infra_costs, other categories |
 | net_pnl_cents | integer | computed: revenue − all cost fields |
 | finalized | boolean, default false | per 11. Analytics → Automated Monthly P&L's locking recommendation |
-| generated_at | timestamptz |  |
+| generated_at | timestamptz | |
 
 See 11. Analytics → AI / Token Usage Tracking, Unit Economics, and Automated Monthly P&L for the full reasoning behind these tables.
 
@@ -193,16 +193,16 @@ The `users` table's `clerk_id` field (text, unique, mapping to the auth provider
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | type | text | e.g. "export_sales_report" |
 | status | enum | pending / processing / completed / failed |
 | idempotency_key | text, unique | client-generated, prevents duplicate job creation on double-click/retry |
-| user_id | uuid, FK → users |  |
+| user_id | uuid, FK → users | |
 | tenant_id | uuid | scoped per 04. Security → Tenant Isolation Audit |
 | params | jsonb | what was requested |
 | result_url | text, nullable | signed URL once complete |
-| error_message | text, nullable |  |
-| created_at / completed_at | timestamptz |  |
+| error_message | text, nullable | |
+| created_at / completed_at | timestamptz | |
 
 See 02. Technical Architecture → Async Job Pattern & Idempotency for the full flow this table supports.
 
@@ -222,13 +222,13 @@ See 02. Technical Architecture → Async Job Pattern & Idempotency for the full 
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
-| merchant_profile_id | uuid, FK → merchant_profiles |  |
-| period_start / period_end | timestamptz |  |
+| id | uuid, PK | |
+| merchant_profile_id | uuid, FK → merchant_profiles | |
+| period_start / period_end | timestamptz | |
 | status | enum | open / pending_charge / charged / failed |
 | total_owed_cents | integer | sum of commissions + platform fees for included sales |
 | paddle_transaction_id | text, nullable | set once successfully charged |
-| retry_count | integer, default 0 |  |
+| retry_count | integer, default 0 | |
 
 ## merchant_profiles — UPDATED
 

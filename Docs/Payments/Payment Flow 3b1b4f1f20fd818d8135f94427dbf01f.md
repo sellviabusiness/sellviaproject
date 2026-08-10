@@ -10,9 +10,9 @@ This doc previously described a Paddle transaction created by SellVia at checkou
 
 ## Flow
 
-**1. Attribution & sale reporting**
+### 1. Attribution & sale reporting
 
-```
+```text
 Follower clicks AffiliateLink → SellVia logs the click, redirects to merchant's own site
   with tracking parameters
 Merchant's integration (webhook, pixel, or manual) reports the sale back to SellVia:
@@ -20,9 +20,9 @@ Merchant's integration (webhook, pixel, or manual) reports the sale back to Sell
   not the deferred v2 item it previously was)
 ```
 
-**2. Acceptance**
+### 2. Acceptance
 
-```
+```text
 Reported sale checked against 04. Fraud Prevention's rules (velocity, plausibility
   against the attribution window, merchant reporting pattern)
 Accepted → commission + platform fee calculated (01. Commission Engine), added to
@@ -30,9 +30,9 @@ Accepted → commission + platform fee calculated (01. Commission Engine), added
 Rejected → flagged for Admin review, not silently dropped
 ```
 
-**3. Periodic billing**
+### 3. Periodic billing
 
-```
+```text
 Scheduled Celery job (02. Background Jobs) closes each merchant's Billing Cycle
   on schedule
 Paddle charges the merchant's card on file for the cycle total
@@ -41,9 +41,9 @@ On success → Billing Cycle marked "charged"
 On failure → retry per policy (01. State Machines' Billing Cycle open question)
 ```
 
-**4. Creator payout**
+### 4. Creator payout
 
-```
+```text
 Once a Billing Cycle reaches "charged," the commissions within it become available
   in each creator's wallet
 Standard $50 threshold → bank payout, unchanged from the original design
@@ -77,7 +77,7 @@ Standard $50 threshold → bank payout, unchanged from the original design
 
 **Additional reliability idea, still worth considering, doesn't depend on webhooks:** unique per-creator discount codes as a secondary attribution signal — works even if the snippet fails to fire for a given purchase (ad blocker, JS error), since it doesn't depend on any cross-domain tracking surviving at all. Not yet decided whether to build this for MVP or treat as v2.
 
-## Open Questions
+## Open Questions (Update)
 
 - Whether to build the unique-discount-code fallback for MVP, given it doesn't depend on this doc's snippet-reliability limitations at all
 - Whether a Shopify-specific webhook upgrade is worth building given actual merchant platform distribution, once there's real data on what platforms merchants are actually using

@@ -77,7 +77,7 @@ The core entities and how they relate — this is the schema that 03. Database a
 
 ## Relationships (summary)
 
-```
+```text
 User 1--1 MerchantProfile (optional)
 User 1--1 CreatorProfile (optional)
 MerchantProfile 1--N Offer

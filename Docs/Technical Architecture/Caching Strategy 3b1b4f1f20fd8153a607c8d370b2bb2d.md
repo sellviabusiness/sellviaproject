@@ -29,7 +29,7 @@ Redis, same instance used for background job queues (see Background Jobs) — no
 
 **Rule: every cached query, cache fragment, and cached API response that touches tenant-private data must include the tenant ID in its cache key, with no exceptions.** Examples of correct keying:
 
-```
+```text
 merchant:{merchant_profile_id}:campaigns
 creator:{creator_profile_id}:earnings_summary
 merchant:{merchant_profile_id}:sales:2026-08
@@ -41,7 +41,7 @@ A cache key that omits tenant context for private data is a bug, full stop — n
 
 Public campaign discovery listings (visible identically to every Creator, by design — see 01. Business Logic → User Flows) are **not** tenant-private data — there's no tenant boundary being crossed by sharing them. These get a separate, explicitly-named `public:` namespace:
 
-```
+```text
 public:campaigns:discovery:page-1
 ```
 

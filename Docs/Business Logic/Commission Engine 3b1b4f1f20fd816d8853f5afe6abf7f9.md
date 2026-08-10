@@ -10,7 +10,7 @@ Previously described an instant Paddle split at time of sale. **Superseded** —
 
 ## The Three-Way Math (unchanged arithmetic, changed mechanism)
 
-```
+```text
 Sale.amount (as reported by the merchant)
   → Creator commission = Sale.amount × locked commission rate
   → Platform fee = Sale.amount × 2%

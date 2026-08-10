@@ -6,7 +6,7 @@ Define the valid states and transitions for the core entities.
 
 ## Application State Machine
 
-```
+```text
 pending → approved (merchant action)
 pending → rejected (merchant action)
 ```
@@ -15,7 +15,7 @@ pending → rejected (merchant action)
 
 ## Campaign State Machine
 
-```
+```text
 draft → live (merchant publishes)
 live → paused (merchant pauses)
 paused → live (merchant resumes)
@@ -23,13 +23,13 @@ live → ended (merchant ends, or automatic end condition)
 ```
 
 - **Decided default (2026-08-03 — please confirm):**
-    - **Paused:** existing approved creators' links keep working — clicks and in-flight sales within the 30-day attribution window are still honored. No *new* applications are accepted while paused.
-    - **Ended:** links stop attributing new clicks/sales immediately. Any click that occurred *before* the end date is still honored if the resulting sale happens within the standard 30-day window; clicks after the end date attribute nothing.
+  - **Paused:** existing approved creators' links keep working — clicks and in-flight sales within the 30-day attribution window are still honored. No *new* applications are accepted while paused.
+  - **Ended:** links stop attributing new clicks/sales immediately. Any click that occurred *before* the end date is still honored if the resulting sale happens within the standard 30-day window; clicks after the end date attribute nothing.
 - **Commission rate changes mid-flight (decided default 2026-08-03 — please confirm):** changing a campaign's commission rate does not require re-consent from already-approved creators. Each approved creator's existing AffiliateLink keeps the rate that was active when they were approved (locked at approval, not at time of sale — this is slightly different from the Sale-level lock in Business Rules, and worth double-checking these two locking rules don't conflict). New applicants after the change apply at the new rate. This avoids building a re-consent/renegotiation flow for MVP.
 
 ## Sale State Machine
 
-```
+```text
 pending → verified (triggers Commission calculation; commission credited to creator wallet)
 pending → disputed / failed
 verified → refunded (triggers clawback per Commission Engine's 14-day rule)
@@ -55,7 +55,7 @@ processing → failed → pending (retry)
 
 ## Diagrams
 
-**Application**
+### Application
 
 ```mermaid
 stateDiagram-v2
@@ -66,7 +66,7 @@ stateDiagram-v2
     rejected --> [*]
 ```
 
-**Campaign**
+### Campaign
 
 ```mermaid
 stateDiagram-v2
@@ -79,7 +79,7 @@ stateDiagram-v2
     ended --> [*]
 ```
 
-**Sale**
+### Sale
 
 ```mermaid
 stateDiagram-v2
@@ -91,7 +91,7 @@ stateDiagram-v2
     refunded --> [*]
 ```
 
-**Payout**
+### Payout
 
 ```mermaid
 stateDiagram-v2
@@ -108,7 +108,7 @@ stateDiagram-v2
 
 **Sale state machine, updated for external-site tracking (01. Money Flow, reversed):**
 
-```
+```text
 reported → accepted (merchant's sale report passes acceptance checks, per 04. Fraud Prevention)
 reported → rejected (failed verification/fraud check)
 accepted → billed (included in a completed merchant billing cycle)
@@ -117,9 +117,9 @@ accepted → refunded (merchant reports a refund)
 
 Note the terminology shift: **"verified" (meaning SellVia witnessed a direct payment) no longer applies** u2014 replaced by "reported" u2192 "accepted," reflecting that SellVia is trusting a merchant's claim, not confirming a transaction it processed itself.
 
-**New: Billing Cycle state machine**
+### New: Billing Cycle state machine
 
-```
+```text
 open (accumulating accepted sales for a merchant)
   ↓ (cycle end date reached)
 pending_charge → charged (merchant's card successfully billed)
@@ -129,7 +129,7 @@ charged → creator_payouts_released (per 01. Money Flow's \"bill first, then pa
 
 **Payout state machine, updated:**
 
-```
+```text
 wallet accrues (commission credited only after the corresponding Billing Cycle reaches "charged" —
   NOT per-sale-instant anymore, per 01. Money Flow's reversed decision)
   ↓ (wallet balance ≥ $50)
@@ -137,7 +137,7 @@ pending → processing → paid
 processing → failed → pending (retry)
 ```
 
-## Open Questions
+## Open Questions (Update)
 
 - Exact retry policy for a failed merchant billing charge (how many attempts, over what window, before suspending campaigns) u2014 not yet designed
 

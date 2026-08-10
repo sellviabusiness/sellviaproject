@@ -16,14 +16,14 @@ What gets logged for accountability/dispute-resolution purposes, separate from a
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | actor_user_id | uuid, nullable | null for system/webhook-triggered changes |
 | entity_type | text | e.g. "campaign", "sale", "payout" |
-| entity_id | uuid |  |
+| entity_id | uuid | |
 | action | text | e.g. "commission_rate_changed", "status_changed" |
-| before | jsonb |  |
-| after | jsonb |  |
-| created_at | timestamptz |  |
+| before | jsonb | |
+| after | jsonb | |
+| created_at | timestamptz | |
 
 ## Why a Separate Table, Not Just `updated_at`
 

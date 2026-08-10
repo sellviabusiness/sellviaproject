@@ -6,7 +6,7 @@ An automatically-generated monthly profit & loss statement, reconciling internal
 
 ## Formula
 
-```
+```text
 Revenue:  Platform fees collected (from internal platform_fees table)
 Costs:    Paddle processing fees
         + Hosting/infra costs

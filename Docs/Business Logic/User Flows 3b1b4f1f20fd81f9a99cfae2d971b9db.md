@@ -26,7 +26,7 @@ End-to-end paths through the product for each role, so screens and API endpoints
 
 ## Traced Example (from live site, useful as a reference case for engineering + QA)
 
-```
+```text
 13:58 — post published (@mia.dscvr)
 14:02 — click on sellvia.link/mia-glow
 14:06 — add to cart, $68.00
@@ -48,7 +48,7 @@ Single unified sign-up form; user picks "Merchant" or "Creator," then flow branc
 
 ## Diagrams
 
-**Merchant Flow**
+### Merchant Flow Diagram
 
 ```mermaid
 sequenceDiagram
@@ -67,7 +67,7 @@ sequenceDiagram
     C->>P: Views dashboard (clicks/sales)
 ```
 
-**Creator Flow**
+### Creator Flow Diagram
 
 ```mermaid
 sequenceDiagram

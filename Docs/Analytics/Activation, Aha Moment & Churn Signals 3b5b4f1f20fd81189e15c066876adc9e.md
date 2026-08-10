@@ -24,7 +24,7 @@ Both naturally take longer than activation, since both depend on someone else's 
 
 Consistent with "rules before AI" (00. Mission & Principles, 04. Fraud Prevention): whether a user has completed their core action is a deterministic query against existing events (11. Analytics → Events), not something requiring AI judgment. A scheduled Celery job (02. Background Jobs) checks, on a recurring basis, which users crossed the 24h/48h thresholds without the relevant event:
 
-```
+```text
 Every hour:
   Find users created 24-25h ago with no campaign_published/application_submitted event
     AND no 24h nudge already sent → trigger 24h nudge
@@ -44,7 +44,7 @@ All three read from the same "has this user completed their core action" flag �
 
 ## Churn Signal Tracking
 
-```
+```text
 activation_nudges
   id
   user_id

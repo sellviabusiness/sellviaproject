@@ -10,7 +10,7 @@ Track the full lifecycle of a dollar from a sale to a creator's bank account.
 
 ## Confirmed Flow (2026-08-07)
 
-```
+```text
 Follower clicks creator's link
   ↓
 SellVia records the click, redirects to the merchant's own website
@@ -85,7 +85,7 @@ The "merchant integration mechanism" open question above is resolved: a universa
 
 **Rule:**
 
-```
+```text
 merchant_profiles.monthly_refund_credits_used  (counter, resets each calendar month)
 
 On refund credit request:
@@ -105,6 +105,6 @@ On refund credit request:
 
 The earlier "automatic snippet-based refund reporting, unlimited" framing on this page is superseded — there's no automatic refund event to hook into in the way sale reporting works, because SellVia was never part of the refund transaction to begin with. This is a merchant-initiated billing credit request, capped, not an automated pass-through.
 
-## Open Questions
+## Open Questions (Update)
 
 None — refund handling is resolved as a capped billing credit request (05. Refund Handling), not an automated pass-through.

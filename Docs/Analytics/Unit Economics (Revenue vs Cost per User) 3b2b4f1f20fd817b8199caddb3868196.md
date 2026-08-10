@@ -24,7 +24,7 @@ Two components, kept distinct rather than blended into one fuzzy number:
 
 ## Net Contribution (Merchants Only)
 
-```
+```text
 Net contribution per merchant = Merchant revenue − (Paddle fees + AI costs + allocated infra share)
 ```
 

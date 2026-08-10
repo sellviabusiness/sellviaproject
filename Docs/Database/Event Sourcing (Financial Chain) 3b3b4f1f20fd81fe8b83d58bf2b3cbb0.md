@@ -10,7 +10,7 @@ Event sourcing is a real complexity commitment: every read needs a projection in
 
 ## The Event Log (source of truth)
 
-```
+```text
 financial_events
   id
   event_type       (SaleCreated, SaleVerified, CommissionCalculated, PlatformFeeCalculated,

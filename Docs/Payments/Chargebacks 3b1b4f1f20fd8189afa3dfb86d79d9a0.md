@@ -30,7 +30,7 @@ The "14-day rule" referenced above no longer exists — creator commission is ne
 
 **Mechanics:**
 
-```
+```text
 merchant_profiles.lifetime_disputes_lost  (counter, increments on each lost dispute)
 
 On chargeback lost:

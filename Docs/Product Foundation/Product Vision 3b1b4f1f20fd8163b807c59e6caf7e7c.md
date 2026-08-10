@@ -72,9 +72,9 @@ Existing affiliate networks (Amazon Associates, ShareASale, Rakuten, Impact, CJ 
 
 ## Related Docs
 
-- 
+-
     1. Business Logic → User Roles, Domain Model, Commission Engine
-- 
+-
     1. UX → Design System ([design.md](http://design.md))
-- 
+-
     1. Infrastructure & DevOps → Environment Strategy

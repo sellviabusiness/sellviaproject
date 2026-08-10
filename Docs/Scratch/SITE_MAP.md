@@ -24,7 +24,7 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 ## 1. Public Site
 
-```
+```text
 /                                          [Explicit — wesellvia.com home: hero, concept walkthrough,
                                              roadmap, FAQ, waitlist form]
 ├── /how-it-works                          [Inferred — nav link named "How It Works" in design.md/Navigation]
@@ -54,7 +54,7 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 ## 2. Authentication Routes (Shared Shell, Pre-Role)
 
-```
+```text
 /login                                     [Inferred — conventional route; Ory Kratos-driven]
 /register                                  [Inferred — unified signup form, role selection inside]
 /forgot-password                           [Inferred]
@@ -72,7 +72,7 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 ## 3. Onboarding (Post-Signup, Pre-Dashboard)
 
-```
+```text
 /onboarding/role                           [Inferred — if role selection isn't inline on /register]
 /onboarding/merchant/paddle                [Inferred — Paddle card-on-file / billing setup step,
                                              gates Campaign draft→live]
@@ -92,7 +92,7 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 Per `UX/Navigation`: **Campaigns / Applications / Sales / Payouts** are the named top-level nav sections for the Merchant role. Flat, no deep nesting, no mega-menus.
 
-```
+```text
 /dashboard                                 [Inferred — Merchant home/overview if role = merchant;
                                              see §7 for dual-role landing behavior]
 ├── /offers                                [Inferred — Offer list; Offers aren't a named nav item in
@@ -129,7 +129,7 @@ Per `UX/Navigation`: **Campaigns / Applications / Sales / Payouts** are the name
 
 Per `UX/Navigation`: **Discover / My Links / Earnings** are the named top-level nav sections for the Creator role.
 
-```
+```text
 /dashboard                                 [Inferred — Creator home/overview if role = creator]
 ├── /discover                              [Explicit — named nav section; campaign browse/apply,
                                              authenticated version of the public /campaigns list]
@@ -156,7 +156,7 @@ Per `UX/Navigation`: **Discover / My Links / Earnings** are the named top-level 
 
 Per `UX/Navigation`: "**Admin nav is entirely separate (`/admin/*`), not exposed to regular Merchant/Creator navigation at all.**" — [Explicit] namespace, [Inferred] sub-routes based on `Operations/Admin Panel`'s named screens.
 
-```
+```text
 /admin
 ├── /admin/dashboard                       [Inferred — marketplace health, funnels, time-to-payout]
 ├── /admin/moderation                      [Inferred — flagged Sales/Applications queue;
@@ -200,7 +200,7 @@ This site map does not prescribe which; `SCREEN_INVENTORY.md` treats Merchant an
 
 ## 8. Full Hierarchy (Condensed Tree)
 
-```
+```text
 /
 ├── / (marketing home)
 ├── /how-it-works

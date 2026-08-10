@@ -27,7 +27,7 @@ CORSMiddleware(
 
 **Getting this wrong breaks merchant billing card updates, not customer checkout** — since checkout moved to the merchant's own site (01. Money Flow, reversed 2026-08-07), Paddle Checkout now only appears on SellVia's merchant billing settings page (02. Frontend Architecture), not on any follower-facing surface. Still a real failure mode worth guarding against — a merchant unable to update their card on file is a real problem — just a smaller blast radius than before. Required allowances (same as before, now scoped to a narrower page rather than the whole public app):
 
-```
+```text
 script-src 'self' https://js.paddle.com
 frame-src https://js.paddle.com
 connect-src 'self' https://api.paddle.com

@@ -13,9 +13,9 @@ Cloudflare is already the DNS/CDN/DDoS layer in front of everything (06. Infrast
 - **Managed ruleset:** Cloudflare's OWASP Core Ruleset enabled, covering common injection/XSS/known-exploit patterns out of the box
 - **Bot Fight Mode / Super Bot Fight Mode:** enabled to challenge or block automated non-browser traffic before it reaches the app
 - **Custom rate-based rules** on the highest-value targets specifically:
-    - `/checkout/*` — the single most attractive target for card-testing fraud (04. Security → Fraud Prevention already names this risk; WAF is the first line of defense before it ever reaches that application-level fraud logic)
-    - `/auth/*` (Clerk-fronted, but still worth edge-level brute-force protection)
-    - Public campaign discovery/search endpoints (scraping protection, per 02. Search Strategy)
+  - `/checkout/*` — the single most attractive target for card-testing fraud (04. Security → Fraud Prevention already names this risk; WAF is the first line of defense before it ever reaches that application-level fraud logic)
+  - `/auth/*` (Clerk-fronted, but still worth edge-level brute-force protection)
+  - Public campaign discovery/search endpoints (scraping protection, per 02. Search Strategy)
 
 ## Critical Exception: Paddle Webhooks Must Be Allowlisted
 

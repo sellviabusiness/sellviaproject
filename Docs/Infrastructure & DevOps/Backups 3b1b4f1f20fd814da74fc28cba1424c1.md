@@ -6,7 +6,7 @@ Protecting against data loss — directly from the original conversation's state
 
 ## Policy (from the original conversation)
 
-```
+```text
 Every night
   ↓
 Dump PostgreSQL
