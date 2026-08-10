@@ -6,7 +6,7 @@ Where SellVia actually runs — synthesized from the earlier VPS/hosting convers
 
 ## Decided Approach
 
-```
+```text
 Cloudflare (DNS, CDN, HTTPS, DDoS protection)
         │
         ▼
