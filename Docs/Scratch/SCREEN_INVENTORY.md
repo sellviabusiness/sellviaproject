@@ -144,17 +144,17 @@ Every screen the frontend needs to design/implement, derived from `/Docs`. Cross
 ### C2. Merchant Onboarding — Billing Card Setup
 
 - **Purpose:** Collect card on file for periodic billing before any campaign can go live.
-- **Route:** `/onboarding/merchant/stripe` (also reachable from `/settings/billing`) — [Inferred]
+- **Route:** `/onboarding/merchant/paddle` (also reachable from `/settings/billing`) — [Inferred]
 - **Access:** Merchant only.
 - **Entry points:** Post-role-selection first-run flow; blocked-publish prompt from Campaign creation.
-- **Main UI sections:** Stripe Elements SetupIntent form, gate-status indicator.
+- **Main UI sections:** Paddle Checkout SetupIntent form, gate-status indicator.
 - **Primary actions:** Add/update card.
-- **Data required:** Stripe SetupIntent client secret from backend.
-- **States:** not-started, in-progress, complete, Stripe-restricted (with reason + resolution link), 3x-failed-billing warning.
-- **API dependencies:** Stripe SetupIntent; `merchant_profiles.stripe_customer_id`.
+- **Data required:** Paddle Checkout client secret from backend.
+- **States:** not-started, in-progress, complete, Paddle-restricted (with reason + resolution link), 3x-failed-billing warning.
+- **API dependencies:** Paddle Checkout; `merchant_profiles.paddle_customer_id`.
 - **Related features:** §2.2, §3.5 Billing.
-- **Related docs:** `Product Foundation/MVP Scope`, `Business Logic/State Machines`, `Security/CORS, CSP & Security Headers` (CSP must allow `js.stripe.com`).
-- **Open item:** Whether full Stripe Connect (KYC) onboarding is also required for merchants post-reversal, beyond the card-on-file SetupIntent — **Needs clarification** (see `FEATURE_LIST.md` item 4).
+- **Related docs:** `Product Foundation/MVP Scope`, `Business Logic/State Machines`, `Security/CORS, CSP & Security Headers` (CSP must allow `js.paddle.com`).
+- **Open item:** Whether full Paddle (KYC) onboarding is also required for merchants post-reversal, beyond the card-on-file SetupIntent — **Needs clarification** (see `FEATURE_LIST.md` item 4).
 
 ### C3. Merchant Onboarding — Tracking Snippet Install
 
@@ -168,15 +168,15 @@ Every screen the frontend needs to design/implement, derived from `/Docs`. Cross
 - **Related docs:** `Payments/Payment Flow`, `Business Logic/State Machines` (second required gate on draft→live).
 - **Open item:** Exact UX (guided vs. copy-paste vs. auto-verify) undesigned — **Needs clarification**.
 
-### C4. Creator Onboarding — Payout Setup (Stripe Connect)
+### C4. Creator Onboarding — Payout Setup (Paddle)
 
-- **Purpose:** Complete Stripe Express onboarding so approved links can activate.
+- **Purpose:** Complete Paddle seller onboarding so approved links can activate.
 - **Route:** `/onboarding/creator/payout` (also `/settings/payout`) — [Inferred]
 - **Access:** Creator only.
-- **Main UI sections:** Stripe Connect Express onboarding embed/redirect, completion status.
+- **Main UI sections:** Paddle seller onboarding embed/redirect, completion status.
 - **States:** not-started, in-progress, complete, blocking-link-activation (explicit message: "finish this to activate your link").
 - **Related features:** §2.4.
-- **Related docs:** `Edge Cases/User Edge Cases`, `Payments/Tax Considerations` (Stripe collects 1099/W-8/W-9 here natively).
+- **Related docs:** `Edge Cases/User Edge Cases`, `Payments/Tax Considerations` (Paddle collects 1099/W-8/W-9 here natively).
 
 ---
 
@@ -235,7 +235,7 @@ Every screen the frontend needs to design/implement, derived from `/Docs`. Cross
 - **Purpose:** Build a campaign around an Offer.
 - **Route:** `/campaigns/new`, `/campaigns/:id/edit` — [Inferred]
 - **Access:** Merchant, own only.
-- **Main UI sections:** Offer selector, commission rate input (no platform bounds, sanity-checked 0–100%), AI copy-assist draft-description action, publish gate checklist (Stripe onboarding ✓/✗, tracking snippet ✓/✗).
+- **Main UI sections:** Offer selector, commission rate input (no platform bounds, sanity-checked 0–100%), AI copy-assist draft-description action, publish gate checklist (Paddle onboarding ✓/✗, tracking snippet ✓/✗).
 - **Primary actions:** Save as draft, Publish (only enabled once both gates pass).
 - **Secondary actions:** Request AI-drafted description.
 - **States:** draft, gate-incomplete (publish disabled with explanation), live, error.
@@ -249,7 +249,7 @@ Every screen the frontend needs to design/implement, derived from `/Docs`. Cross
 - **Access:** Merchant, own only.
 - **Main UI sections:** Status + commission rate, performance stats, applications summary (link to full list), sales summary, pause/resume/end actions.
 - **Primary actions:** Pause, resume, end, edit.
-- **States:** per Campaign state machine (draft/live/paused/ended); Stripe-restricted-auto-paused banner if applicable.
+- **States:** per Campaign state machine (draft/live/paused/ended); Paddle-restricted-auto-paused banner if applicable.
 - **Related docs:** `Business Logic/State Machines`, `Edge Cases/Business Edge Cases`.
 
 ### D7. Applications List (per Campaign or All)
@@ -503,7 +503,7 @@ Every screen the frontend needs to design/implement, derived from `/Docs`. Cross
 ### G6. Reconciliation Review
 
 - **Route:** `/admin/reconciliation` — [Inferred]
-- **Purpose:** Investigate Stripe-vs-internal mismatches.
+- **Purpose:** Investigate Paddle-vs-internal mismatches.
 - **Related docs:** `Payments/Reconciliation`.
 
 ### G7. Waitlist / Beta Invitation Management

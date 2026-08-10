@@ -6,7 +6,7 @@ The technical narrative of how a sale gets reported, billed, and paid out — co
 
 ## REVERSED 2026-08-07
 
-This doc previously described a Stripe PaymentIntent created by SellVia at checkout. **Superseded** — SellVia no longer processes the original sale (01. Money Flow). This doc now covers: (1) how a merchant's sale report is received and accepted, (2) how periodic billing actually charges the merchant, (3) how creator payouts are released.
+This doc previously described a Paddle transaction created by SellVia at checkout. **Superseded** — SellVia no longer processes the original sale (01. Money Flow). This doc now covers: (1) how a merchant's sale report is received and accepted, (2) how periodic billing actually charges the merchant, (3) how creator payouts are released.
 
 ## Flow
 
@@ -35,7 +35,7 @@ Rejected → flagged for Admin review, not silently dropped
 ```
 Scheduled Celery job (02. Background Jobs) closes each merchant's Billing Cycle
   on schedule
-Stripe charges the merchant's card on file for the cycle total
+Paddle charges the merchant's card on file for the cycle total
   (commissions + platform fee owed)
 On success → Billing Cycle marked "charged"
 On failure → retry per policy (01. State Machines' Billing Cycle open question)

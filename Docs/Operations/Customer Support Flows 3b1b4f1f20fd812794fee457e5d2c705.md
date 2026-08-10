@@ -11,9 +11,9 @@ How a Merchant or Creator gets help when something goes wrong — not addressed 
 
 ## Common Flows (derived from what's already been designed)
 
-- **"My payout hasn't arrived"** — support checks Payout status (05. Payments) and Stripe's own payout timeline before assuming something's broken; most cases will be explained by the normal 2–7 day bank transfer window (Money Flow) rather than an actual failure
+- **"My payout hasn't arrived"** — support checks Payout status (05. Payments) and Paddle's own payout timeline before assuming something's broken; most cases will be explained by the normal 2–7 day bank transfer window (Money Flow) rather than an actual failure
 - **"My application was rejected, why?"** — per 01. Business Logic → Notification Logic's still-open question on whether rejections include a reason; support needs a clear answer here regardless of what ships in-product
-- **"I think I was charged twice"** — support checks for genuine duplicate Sales vs. a Stripe pending-then-settled display artifact; ties to Reconciliation (05. Payments) as the authoritative check
+- **"I think I was charged twice"** — support checks for genuine duplicate Sales vs. a Paddle pending-then-settled display artifact; ties to Reconciliation (05. Payments) as the authoritative check
 - **Disputing a commission clawback** — escalates to Admin review of the specific Refund Handling case
 
 ## Open Questions

@@ -7,11 +7,11 @@ The single source of truth for what's actually being built right now — every d
 ## Checkout & Payments
 
 - **SellVia Checkout REMOVED (reversed 2026-08-07)** — external-site tracking is now the model: customer buys on the merchant's own site, SellVia tracks via redirect + universal onboarding snippet + discount-code fallback. See 02. Architecture Decision Log.
-- **Stripe Connect** for processing, instant three-way split (`application_fee_amount` + `transfer_data`)
+- **Processor: Paddle** (reversed 2026-08-10 from Stripe Connect — see 02. Architecture Decision Log). Handles periodic merchant billing; creator payout mechanism not yet confirmed against Paddle's platform/marketplace product — flagged as an open item below, not solved.
 - **Currencies:** USD, EUR, GBP only (PKR dropped for now)
 - **Commission:** merchant-set freely, no platform range, no bargaining
 - **Platform fee: 2% flat**, no subscription tier
-- **Payout:** instant balance split; creator bank payout gated at **$50 threshold**; merchant payout NOT threshold-gated (rides Stripe's standard schedule)
+- **Payout:** commission accrues to creator balance after merchant billing succeeds (not instant/live-split, per the Checkout & Payments reversal below); creator bank payout gated at **$50 threshold**; merchant payout NOT threshold-gated
 - **Attribution window:** 30 days
 - Refund clawback: RESOLVED 2026-08-07 — creator commission is never clawed back; merchant absorbs full refund cost
 
@@ -49,7 +49,7 @@ The single source of truth for what's actually being built right now — every d
 
 - AI/token usage tracking per feature
 - Unit economics (revenue vs. cost per user, asymmetric by role)
-- Automated monthly P&L (Stripe reconciliation + hosting costs + AI costs)
+- Automated monthly P&L (Paddle reconciliation + hosting costs + AI costs)
 
 ## Roles & Access
 
@@ -68,12 +68,13 @@ See **Full Product Vision (Post-MVP)** for the complete list — notably: extern
 - Chargeback dispute fee allocation — RESOLVED 2026-08-07: SellVia absorbs first 5 lost disputes per merchant, merchant pays from 6th onward
 - Sales tax / VAT (founder has deferred this explicitly to end of build)
 - Self-dealing block (dual-role account applying to own campaign) — RESOLVED 2026-08-07: blocked outright
-- Merchant Stripe-restriction handling
+- Merchant Paddle-restriction handling
 - Beachhead niche/vertical for go-to-market
 - Private Beta cohort size/cap
 - Supabase Storage vs. separate S3-compatible provider
 - VPS provider: Hetzner vs. DigitalOcean
 - India IT Rules relevance (founder has deferred this explicitly to end of build)
+- **Paddle creator-payout evaluation (added 2026-08-10)** — does Paddle for Platforms actually support per-creator payout (KYC, bank transfer, $50 threshold) the way Stripe Connect did — needs real evaluation before build, see Architecture Decision Log
 
 ## Status & Incident Communication (added 2026-08-04, upgraded from earlier "deferred")
 
@@ -90,14 +91,18 @@ Commission-rate lock timing is resolved — locked at approval, confirmed by fou
 **This section's original "SellVia Checkout only" bullets are superseded.** Current model:
 
 - **External-site tracking** — customer buys on the merchant's own site; SellVia redirect logs the click, a universal onboarding tracking snippet on the merchant's confirmation page reports the sale
-- **Stripe Connect** used for periodic merchant billing and creator payouts, not a live per-sale split
+- **Paddle** used for periodic merchant billing and creator payouts, not a live per-sale split
 - **Money collection: billed periodically** (merchant's card on file, recurring cycle)
 - **Creator payout: bill-first-then-pay** (working default) — SellVia doesn't front commission before billing succeeds
 - **Refund clawback: creator commission is NEVER clawed back** (RESOLVED) — merchant absorbs full cost via billing-cycle credit adjustment
 - **Commission rate: locked at creator approval** (RESOLVED), never changes after
 - **Self-dealing: blocked outright** (RESOLVED) — dual-role account cannot apply to own campaign
 - **Chargeback dispute fee: SellVia absorbs first 5 lost disputes per merchant, merchant pays from 6th onward** (RESOLVED)
-- **Merchant Stripe restriction: auto-pauses all live campaigns immediately** (RESOLVED)
+- **Merchant Paddle restriction: auto-pauses all live campaigns immediately** (RESOLVED)
 - Currencies, platform fee (2% flat), attribution window (30 days) unchanged
 
 Full detail: 01. Money Flow, 01. Commission Engine, 01. State Machines, 05. Payment Flow, 02. Architecture Decision Log (all updated 2026-08-07).
+
+## Update (2026-08-10): Payments Processor Reversed — Paddle Replaces Stripe
+
+**Founder decision: Paddle instead of Stripe, across the board** (merchant billing, tax, and creator payouts). See 02. Architecture Decision Log for full reasoning. Every doc referencing Stripe/Stripe Connect/Stripe Tax has been updated to Paddle. One real open item this creates, not yet resolved: Paddle's per-creator payout capability (KYC collection, bank transfer, threshold-gated payout) hasn't been evaluated the way Stripe Connect's was — added to Still-Open Items above.

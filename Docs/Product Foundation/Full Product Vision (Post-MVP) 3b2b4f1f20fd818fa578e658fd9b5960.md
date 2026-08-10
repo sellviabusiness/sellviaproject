@@ -11,7 +11,7 @@ Where SellVia goes beyond MVP — everything deliberately deferred, and the even
 
 ## Payments & Currency
 
-- **PKR support** — dropped for MVP due to Stripe Connect payout limitations; revisit with a proper local payout partner (e.g. Payoneer) if there's real demand
+- **PKR support** — dropped for MVP due to Paddle payout limitations; revisit with a proper local payout partner (e.g. Payoneer) if there's real demand
 - **Subscription/tiered pricing** — the earlier $49/mo idea was dropped in favor of a flat 2% fee; could return as a decoupled paid tier for extra features (analytics, priority placement) later, not as a fee discount
 - Volume-based fee reduction for high-performing merchants, if retention data justifies it
 

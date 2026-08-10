@@ -6,7 +6,7 @@ What gets cached, why, and for how long — kept deliberately light for MVP give
 
 ## What NOT to Cache
 
-- Anything related to balances, payouts, or commission amounts — these must always be read live from the database (or Stripe directly), never from a cache, given they're financial figures a user might act on
+- Anything related to balances, payouts, or commission amounts — these must always be read live from the database (or Paddle directly), never from a cache, given they're financial figures a user might act on
 - Sale/Application state — same reasoning; staleness here is a trust problem, not just a UX inconvenience
 
 ## What's Reasonable to Cache

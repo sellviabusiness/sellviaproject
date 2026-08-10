@@ -7,7 +7,7 @@ A single pre-launch checklist pulling together every security decision made acro
 ## Checklist
 
 - [ ]  Clerk auth configured for all three roles, MFA policy decided (Password Policy)
-- [ ]  Stripe webhook signature verification implemented and tested against replay/forgery (Webhook Security)
+- [ ]  Paddle webhook signature verification implemented and tested against replay/forgery (Webhook Security)
 - [ ]  Rate limiting live on checkout, application submission, and public discovery endpoints (Rate Limiting)
 - [ ]  CORS restricted to production frontend origin only, `allow_credentials` paired with exact origin never wildcard (API Security, CORS/CSP & Security Headers)
 - [ ]  CSP tested in Report-Only mode first, verified merchant billing card updates still work before enforcing (CORS, CSP & Security Headers)
@@ -35,4 +35,4 @@ A single pre-launch checklist pulling together every security decision made acro
 - [ ]  Full keyboard navigation verified across both dashboards, hosted checkout, and public site — including custom components built on top of shadcn/ui, not just the library defaults
 - [ ]  Screen reader pass complete: form ARIA attributes, image alt text (including product images — requires the alt-text field added to File Storage's schema), labeled icon-only buttons, `aria-live` on async status updates
 - [ ]  WCAG AA contrast verified with a real tool against [design.md](http://design.md)'s actual hex values — lime-as-text specifically resolved (background/border/icon use only if it fails as body text)
-- [ ]  Refund/chargeback clawback logic tested against a real Stripe test-mode refund
+- [ ]  Refund/chargeback clawback logic tested against a real Paddle test-mode refund

@@ -17,7 +17,7 @@ Per the earlier environment-strategy conversation: separate buckets (or bucket p
 - Product images (uploaded by merchants when creating an Offer)
 - Merchant logos / business branding
 - Creator profile photos
-- **Not** anything related to Stripe/KYC documents — those stay inside Stripe's own onboarding flow (Stripe Express account for merchants/creators handles this directly, per Backend Architecture), so SellVia never needs to store sensitive identity documents itself
+- **Not** anything related to Paddle/KYC documents — those stay inside Paddle's own onboarding flow (Paddle seller account for merchants/creators handles this directly, per Backend Architecture), so SellVia never needs to store sensitive identity documents itself
 
 ## Open Questions
 

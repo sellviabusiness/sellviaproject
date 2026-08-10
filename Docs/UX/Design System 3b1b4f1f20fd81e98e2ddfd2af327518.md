@@ -6,7 +6,7 @@ The binding visual language for everything SellVia builds — this doc summarize
 
 ## Philosophy
 
-Feel like a serious early-stage product, not a marketing campaign. Reference points: HackerRank, Stripe Docs, Linear, Vercel — confident, clear, product-first. Explicitly avoid: gradients, glassmorphism, glow effects, animated blobs, generic SaaS screenshots, buzzword sections.
+Feel like a serious early-stage product, not a marketing campaign. Reference points: HackerRank, Paddle Docs, Linear, Vercel — confident, clear, product-first. Explicitly avoid: gradients, glassmorphism, glow effects, animated blobs, generic SaaS screenshots, buzzword sections.
 
 ## Color
 

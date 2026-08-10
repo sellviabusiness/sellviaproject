@@ -6,8 +6,8 @@ How a creator's or merchant's running balance is represented — the technical c
 
 ## Model
 
-- The "wallet" is not a separate ledger system — it's a running balance derived from summing unpaid Commissions (see Table Specifications), mirrored by the actual balance sitting in the user's Stripe Connect account
-- Stripe is the actual source of truth for available funds; SellVia's `wallet_balance_cents` is a convenience read-model for fast dashboard display, kept in sync via webhook events
+- The "wallet" is not a separate ledger system — it's a running balance derived from summing unpaid Commissions (see Table Specifications), mirrored by the actual balance sitting in the user's Paddle account
+- Paddle is the actual source of truth for available funds; SellVia's `wallet_balance_cents` is a convenience read-model for fast dashboard display, kept in sync via webhook events
 
 ## Creator Wallet
 
@@ -16,7 +16,7 @@ How a creator's or merchant's running balance is represented — the technical c
 
 ## Merchant Wallet
 
-- Also accrues per verified Sale, but is **not** threshold-gated (per Money Flow's working default) — pays out on Stripe's regular rolling schedule regardless of amount
+- Also accrues per verified Sale, but is **not** threshold-gated (per Money Flow's working default) — pays out on Paddle's regular rolling schedule regardless of amount
 
 ## Open Questions
 

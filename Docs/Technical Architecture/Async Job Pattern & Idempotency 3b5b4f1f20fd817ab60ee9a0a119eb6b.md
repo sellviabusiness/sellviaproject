@@ -31,7 +31,7 @@ flowchart TD
 - **Key already exists → return the existing job's ID and current status.** No new job, no duplicate work, no duplicate notification.
 - **Key doesn't exist → create the job, enqueue the work.**
 
-This is the same principle already required for Stripe-touching endpoints (07. API → REST Standards' existing idempotency requirement), generalized to every job-creation endpoint, not just payment ones — a double-click, a flaky network retry, or an impatient second click all resolve to exactly one job.
+This is the same principle already required for Paddle-touching endpoints (07. API → REST Standards' existing idempotency requirement), generalized to every job-creation endpoint, not just payment ones — a double-click, a flaky network retry, or an impatient second click all resolve to exactly one job.
 
 ## Job Schema
 
@@ -64,4 +64,4 @@ A job's `GET /jobs/:id` (and the list of a user's own jobs) is scoped exactly li
 
 ## Open Questions
 
-- None blocking — this is a straightforward extension of already-decided patterns (Background Jobs, Notification Logic, idempotency keys already required for Stripe). Specific job `type`s get added as actual export/report features are built.
+- None blocking — this is a straightforward extension of already-decided patterns (Background Jobs, Notification Logic, idempotency keys already required for Paddle). Specific job `type`s get added as actual export/report features are built.

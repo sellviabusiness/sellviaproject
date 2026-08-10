@@ -26,7 +26,7 @@ Sale recorded as "reported" — NOT "verified" the way hosted checkout meant it.
   SellVia is trusting the merchant's report, not witnessing a payment directly.
   ↓
 Commission + platform fee calculated and recorded as OWED, not split live
-  (no live transaction exists for Stripe to split)
+  (no live transaction exists for Paddle to split)
   ↓
 Accumulates in a running ledger per merchant until the next billing cycle
   ↓
@@ -34,7 +34,7 @@ Periodically (weekly/monthly): SellVia charges the merchant's card on file
   for everything owed that cycle (commissions + platform fee, bundled)
   ↓
 On successful charge: SellVia pays creators out of its own collected funds
-  (creators still need Stripe Connect accounts to receive payouts,
+  (creators still need Paddle accounts to receive payouts,
   just funded by SellVia's billing collection, not a live per-sale split)
   ↓
 Receipt generated — shown to both parties, though it now reflects
@@ -59,7 +59,7 @@ Between billing cycles, SellVia would technically owe creators commission on sal
 
 ## Refunds Under This Model
 
-A refund now has to be reported by the merchant too (SellVia has no direct visibility into the merchant's own checkout). The existing rule (creator never loses commission, per 01. Commission Engine) still applies — a reported refund reduces what's billed to the merchant in future cycles, or if already billed, becomes a credit adjustment on the next cycle rather than an instant Stripe transfer reversal (which no longer applies, since there's no Connect transfer to reverse).
+A refund now has to be reported by the merchant too (SellVia has no direct visibility into the merchant's own checkout). The existing rule (creator never loses commission, per 01. Commission Engine) still applies — a reported refund reduces what's billed to the merchant in future cycles, or if already billed, becomes a credit adjustment on the next cycle rather than an instant Paddle transfer reversal (which no longer applies, since there's no Connect transfer to reverse).
 
 ## Payout Threshold (creator side)
 

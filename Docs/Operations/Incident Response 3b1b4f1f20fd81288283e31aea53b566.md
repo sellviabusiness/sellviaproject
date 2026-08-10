@@ -45,7 +45,7 @@ The earlier stance above ("a simple status message is sufficient at current scal
 The full workflow above is the process; this is the literal first-10-minutes checklist for when an alert fires, in order:
 
 1. **What exactly failed?** Check Better Uptime (06. Monitoring) — is it the health endpoint, the frontend, or something specific?
-2. **Is it actually SellVia, or a dependency?** Check Stripe status, Supabase/Neon status, Cloudflare status, Ory Network status — in that order of likelihood given 08. Failure Modes Registry (Cloudflare is the single largest concentration of risk in the stack — check it early, not last)
+2. **Is it actually SellVia, or a dependency?** Check Paddle status, Supabase/Neon status, Cloudflare status, Ory Network status — in that order of likelihood given 08. Failure Modes Registry (Cloudflare is the single largest concentration of risk in the stack — check it early, not last)
 3. **Did something just deploy?** Check the last Git tag/release (06. Git Repository Strategy's semantic version tags) — if an incident starts right after a deploy, that's the prime suspect
 4. **Is it tied to a specific recent feature flag?** If yes — flip it off first (06. Feature Flags Strategy), before anything more drastic. Faster and more targeted than a full rollback.
 5. **Check Error Handling & Logging Pipeline (Sentry)** for the actual error — not guessing, reading the real stack trace and how many users/requests are affected

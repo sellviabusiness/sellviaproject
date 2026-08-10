@@ -20,7 +20,7 @@ Field-by-field schema for every table — the literal thing a migration file wou
 | id | uuid, PK |  |
 | user_id | uuid, FK → users |  |
 | business_name | text |  |
-| stripe_connect_account_id | text | Stripe Express account ID |
+| paddle_seller_id | text | Paddle seller account ID |
 
 ## creator_profiles
 
@@ -31,7 +31,7 @@ Field-by-field schema for every table — the literal thing a migration file wou
 | niche | text | fixed taxonomy per 02. Search Strategy |
 | audience_size | integer |  |
 | engagement_rate | numeric | see Domain Model's open question on self-reported vs. platform-calculated |
-| stripe_connect_account_id | text |  |
+| paddle_seller_id | text |  |
 | wallet_balance_cents | integer | running accrued balance toward the $50 threshold |
 
 ## offers
@@ -90,7 +90,7 @@ Field-by-field schema for every table — the literal thing a migration file wou
 | amount_cents | integer |  |
 | currency | text |  |
 | status | enum | pending / verified / refunded / disputed |
-| stripe_payment_intent_id | text |  |
+| paddle_transaction_id | text |  |
 
 ## commissions
 
@@ -119,7 +119,7 @@ Field-by-field schema for every table — the literal thing a migration file wou
 | recipient_id | uuid | polymorphic — references creator_profiles or merchant_profiles depending on recipient_type |
 | amount_cents | integer |  |
 | status | enum | pending / processing / paid / failed |
-| stripe_payout_id | text |  |
+| paddle_payout_id | text |  |
 
 ## payout_commissions (join table)
 
@@ -175,7 +175,7 @@ Field-by-field schema for every table — the literal thing a migration file wou
 | id | uuid, PK |  |
 | period_month | date, unique |  |
 | revenue_cents | integer | sum of platform_fees for the period |
-| stripe_fees_cents | integer | pulled from Stripe Balance Transactions |
+| paddle_fees_cents | integer | pulled from Paddle Balance Transactions |
 | hosting_cost_cents | integer | from infra_costs |
 | ai_cost_cents | integer | sum of ai_usage_events.cost_cents |
 | other_cost_cents | integer | from infra_costs, other categories |
@@ -216,7 +216,7 @@ See 02. Technical Architecture → Async Job Pattern & Idempotency for the full 
 | reported_at | timestamptz | when the merchant's snippet reported it — NEW |
 | acceptance_status | enum | accepted / rejected — NEW, replaces the old "verified" framing |
 | billing_cycle_id | uuid, FK → billing_cycles, nullable | NEW, set once included in a cycle |
-| ~~stripe_payment_intent_id~~ | — | REMOVED — SellVia never processes the underlying sale |
+| ~~paddle_transaction_id~~ | — | REMOVED — SellVia never processes the underlying sale |
 
 ## billing_cycles — NEW TABLE
 
@@ -227,12 +227,12 @@ See 02. Technical Architecture → Async Job Pattern & Idempotency for the full 
 | period_start / period_end | timestamptz |  |
 | status | enum | open / pending_charge / charged / failed |
 | total_owed_cents | integer | sum of commissions + platform fees for included sales |
-| stripe_charge_id | text, nullable | set once successfully charged |
+| paddle_transaction_id | text, nullable | set once successfully charged |
 | retry_count | integer, default 0 |  |
 
 ## merchant_profiles — UPDATED
 
-Add: `stripe_customer_id` (for the card-on-file billing charge — distinct from `stripe_connect_account_id`, which now exists only for merchants who also want to *receive* payouts through SellVia for something else, not for the sale itself).
+Add: `paddle_customer_id` (for the card-on-file billing charge — distinct from `paddle_seller_id`, which now exists only for merchants who also want to *receive* payouts through SellVia for something else, not for the sale itself).
 
 ## payouts — UPDATED
 

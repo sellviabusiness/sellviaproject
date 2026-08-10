@@ -6,13 +6,13 @@ How API keys and credentials are stored and rotated.
 
 ## Approach
 
-- Environment variables per environment (Local / Staging / Production), never hardcoded — directly continues the pattern from the earlier infrastructure conversation (`DATABASE_URL`, `API_KEY`, `STRIPE_SECRET_KEY`, `CLERK_SECRET_KEY`, etc.)
+- Environment variables per environment (Local / Staging / Production), never hardcoded — directly continues the pattern from the earlier infrastructure conversation (`DATABASE_URL`, `API_KEY`, `PADDLE_API_KEY`, `CLERK_SECRET_KEY`, etc.)
 - **Production secrets never exist in a developer's local `.env` file** — managed through the hosting provider's secret storage or a dedicated secrets manager, not passed around manually
-- Stripe and Clerk both provide separate test/live key pairs — test keys in Local/Staging, live keys only in Production, matching the existing environment-separation principle
+- Paddle and Clerk both provide separate test/live key pairs — test keys in Local/Staging, live keys only in Production, matching the existing environment-separation principle
 
 ## Rotation
 
-- Recommended default: rotate Stripe/Clerk API keys if a leak is ever suspected, and periodically (e.g. annually) as routine hygiene — not a pressing MVP concern but worth documenting the expectation now rather than never
+- Recommended default: rotate Paddle/Clerk API keys if a leak is ever suspected, and periodically (e.g. annually) as routine hygiene — not a pressing MVP concern but worth documenting the expectation now rather than never
 
 ## Open Questions
 

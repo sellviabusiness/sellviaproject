@@ -34,7 +34,7 @@ Directly from the earlier conversation's reasoning: databases are the hardest th
 | PostgreSQL | Managed (not VPS) |
 | Redis | Managed or self-hosted on VPS, budget-dependent |
 | File storage | S3-compatible object storage (not VPS) |
-| Stripe, Clerk | Third-party, not self-hosted at all |
+| Paddle, Clerk | Third-party, not self-hosted at all |
 
 ## Open Questions
 

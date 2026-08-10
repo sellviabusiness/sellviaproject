@@ -53,7 +53,7 @@ For real reputation isolation, not just cosmetic domain separation: **a transact
 ## Deliverability Monitoring — Where It Actually Lands, Not Just "Sent"
 
 - **SPF, DKIM, DMARC** configured correctly per subdomain — the baseline without which inbox placement is unreliable regardless of ESP quality
-- **Bounce and complaint webhooks** from each ESP, processed the same way Stripe webhooks are (signature-verified, enqueued, processed idempotently — 02. Event-Driven Architecture's pattern reused here, not reinvented)
+- **Bounce and complaint webhooks** from each ESP, processed the same way Paddle webhooks are (signature-verified, enqueued, processed idempotently — 02. Event-Driven Architecture's pattern reused here, not reinvented)
 - **DMARC aggregate reports (rua)** — shows actual pass/fail rates and catches any spoofing attempts using your domain, monitored on an ongoing basis, not just checked once at setup
 - **Periodic inbox-placement testing** (tools like GlockApps or mail-tester) — actually verifies landing in Gmail/Outlook/etc. inbox vs. spam, run before launch and periodically after, not assumed to stay correct forever once configured
 

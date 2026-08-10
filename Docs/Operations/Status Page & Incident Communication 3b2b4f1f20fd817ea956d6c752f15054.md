@@ -10,7 +10,7 @@ A status page that stays up when SellVia's own infrastructure doesn't — plus t
 
 ## Recommended Approach: Managed Status Page Tool, Not Self-Hosted
 
-Consistent with the pattern used throughout this entire build (Stripe for payments, Clerk for auth, Supabase for the database — use a managed service for undifferentiated, high-reliability infrastructure rather than building it in-house): a dedicated status page SaaS (e.g. Instatus, Better Uptime, or similar) run on its own robust infrastructure, completely decoupled from SellVia's VPS/Cloudflare stack. Self-hosting a status page defeats its own purpose — if it's hosted on the same infrastructure it's meant to report on, it fails at exactly the moment it's needed most.
+Consistent with the pattern used throughout this entire build (Paddle for payments, Clerk for auth, Supabase for the database — use a managed service for undifferentiated, high-reliability infrastructure rather than building it in-house): a dedicated status page SaaS (e.g. Instatus, Better Uptime, or similar) run on its own robust infrastructure, completely decoupled from SellVia's VPS/Cloudflare stack. Self-hosting a status page defeats its own purpose — if it's hosted on the same infrastructure it's meant to report on, it fails at exactly the moment it's needed most.
 
 ## Scheduled Maintenance Announcements
 

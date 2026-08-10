@@ -67,7 +67,7 @@ Existing affiliate networks (Amazon Associates, ShareASale, Rakuten, Impact, CJ 
 
 - What's the actual niche/category for the "beachhead" cohort mentioned in the chicken-and-egg strategy (indie software? a specific retail vertical?) — needs a decision before Private Beta.
 - What follower/audience-size floor (if any) applies to creator eligibility? The FAQ on [wesellvia.com](http://wesellvia.com) implies "no," but this needs an explicit rule for moderation/quality control.
-- Payout rails at launch: PayPal + bank transfer are named in the raw data doc — confirm this holds for MVP or if Stripe Connect (per the infra conversation) changes this.
+- Payout rails at launch: PayPal + bank transfer are named in the raw data doc — confirm this holds for MVP or if Paddle (per the infra conversation) changes this.
 - How does "private beta, in join order, on founding terms" (from the roadmap) map to concrete product rules — is there a cap on beta cohort size?
 
 ## Related Docs

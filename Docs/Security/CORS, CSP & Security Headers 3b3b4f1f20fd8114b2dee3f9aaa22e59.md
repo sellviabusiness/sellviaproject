@@ -23,14 +23,14 @@ CORSMiddleware(
 
 **Public read endpoints** (campaign discovery, per 07. API → Endpoint Specifications) are a separate question from browser CORS — CORS governs cross-origin browser JavaScript, not server-to-server calls or crawler access (09. UX → AI Agent & Machine Readability's robots.txt is a different, unrelated mechanism). If these endpoints are only ever called from SellVia's own frontend, they follow the same restricted-origin rule above; only widen this if a genuine third-party browser-based integration is planned.
 
-## Content-Security-Policy — The Stripe Constraint (narrower surface after 2026-08-07 reversal)
+## Content-Security-Policy — The Paddle Constraint (narrower surface after 2026-08-07 reversal)
 
-**Getting this wrong breaks merchant billing card updates, not customer checkout** — since checkout moved to the merchant's own site (01. Money Flow, reversed 2026-08-07), Stripe Elements now only appears on SellVia's merchant billing settings page (02. Frontend Architecture), not on any follower-facing surface. Still a real failure mode worth guarding against — a merchant unable to update their card on file is a real problem — just a smaller blast radius than before. Required allowances (same as before, now scoped to a narrower page rather than the whole public app):
+**Getting this wrong breaks merchant billing card updates, not customer checkout** — since checkout moved to the merchant's own site (01. Money Flow, reversed 2026-08-07), Paddle Checkout now only appears on SellVia's merchant billing settings page (02. Frontend Architecture), not on any follower-facing surface. Still a real failure mode worth guarding against — a merchant unable to update their card on file is a real problem — just a smaller blast radius than before. Required allowances (same as before, now scoped to a narrower page rather than the whole public app):
 
 ```
-script-src 'self' https://js.stripe.com
-frame-src https://js.stripe.com
-connect-src 'self' https://api.stripe.com
+script-src 'self' https://js.paddle.com
+frame-src https://js.paddle.com
+connect-src 'self' https://api.paddle.com
 style-src 'self' 'unsafe-inline'   (Tailwind/shadcn may need this — verify, prefer nonces if avoidable)
 font-src 'self'                    (self-hosted via next/font, per 09. UX → Design System — avoids third-party font CSP complexity entirely)
 img-src 'self' data: https:        (product images, per 03. Database → File Storage)

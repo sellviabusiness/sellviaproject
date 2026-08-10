@@ -4,9 +4,9 @@
 
 What happens when a merchant's customer wants a refund, and what that means for SellVia's billing.
 
-## REVISED 2026-08-07: This Is a Billing Credit Request, Not a Stripe Refund SellVia Processes
+## REVISED 2026-08-07: This Is a Billing Credit Request, Not a Paddle Refund SellVia Processes
 
-The process below previously assumed SellVia held the original Stripe charge and could reverse it directly. **That's no longer true** — the customer paid the merchant directly, on the merchant's own site (01. Money Flow, reversed). SellVia was never part of that transaction and has no charge to refund.
+The process below previously assumed SellVia held the original Paddle charge and could reverse it directly. **That's no longer true** — the customer paid the merchant directly, on the merchant's own site (01. Money Flow, reversed). SellVia was never part of that transaction and has no charge to refund.
 
 ## Process (corrected)
 

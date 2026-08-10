@@ -30,7 +30,7 @@ Consistent error shape across every endpoint, so the frontend can handle failure
 
 ## Payments-Specific Errors
 
-Stripe errors (declined card, etc.) are translated into this same shape rather than passing Stripe's raw error format straight through to the frontend — keeps the client-side error handling consistent regardless of which underlying service failed.
+Paddle errors (declined card, etc.) are translated into this same shape rather than passing Paddle's raw error format straight through to the frontend — keeps the client-side error handling consistent regardless of which underlying service failed.
 
 ## Open Questions
 

@@ -99,9 +99,9 @@ Commission N--1 Payout (aggregated)
 
 Reverses 01. Money Flow's earlier hosted-checkout model — the entities below change accordingly:
 
-**Sale** — now represents a *merchant-reported* sale, not a payment SellVia processed directly. New fields needed: `external_order_id` (the merchant's own order reference), `reported_at`, `acceptance_status` (accepted/rejected, per 04. Fraud Prevention's new merchant-reporting checks). No longer has a direct `stripe_payment_intent_id` for the underlying sale — SellVia never processes that transaction.
+**Sale** — now represents a *merchant-reported* sale, not a payment SellVia processed directly. New fields needed: `external_order_id` (the merchant's own order reference), `reported_at`, `acceptance_status` (accepted/rejected, per 04. Fraud Prevention's new merchant-reporting checks). No longer has a direct `paddle_transaction_id` for the underlying sale — SellVia never processes that transaction.
 
-**New entity: BillingCycle** — belongs to a Merchant, aggregates all `accepted` Sales in a period, has a status (open/pending_charge/charged/failed), and a `stripe_charge_id` once successfully billed (this is where Stripe actually re-enters the picture — not for the original sale, but for charging the merchant's card on file).
+**New entity: BillingCycle** — belongs to a Merchant, aggregates all `accepted` Sales in a period, has a status (open/pending_charge/charged/failed), and a `paddle_transaction_id` once successfully billed (this is where Paddle actually re-enters the picture — not for the original sale, but for charging the merchant's card on file).
 
 **New relationship:** `Merchant 1--N BillingCycle`, `BillingCycle 1--N Sale` (which sales were included in which cycle).
 

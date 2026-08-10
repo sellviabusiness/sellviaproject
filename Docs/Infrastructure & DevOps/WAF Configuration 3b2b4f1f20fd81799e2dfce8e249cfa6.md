@@ -17,9 +17,9 @@ Cloudflare is already the DNS/CDN/DDoS layer in front of everything (06. Infrast
     - `/auth/*` (Clerk-fronted, but still worth edge-level brute-force protection)
     - Public campaign discovery/search endpoints (scraping protection, per 02. Search Strategy)
 
-## Critical Exception: Stripe Webhooks Must Be Allowlisted
+## Critical Exception: Paddle Webhooks Must Be Allowlisted
 
-**The WAF must not block Stripe's webhook calls to `/webhooks/stripe`.** Aggressive bot-fighting or rate-based rules could otherwise treat Stripe's legitimate, high-frequency webhook deliveries as abuse — which would silently break Sale/Payout state updates (04. Security → Webhook Security already establishes signature verification as the trust mechanism there; the WAF shouldn't add a second, uncoordinated layer that can reject legitimate Stripe traffic before signature verification even runs). Allowlist Stripe's published webhook IP ranges explicitly for this endpoint.
+**The WAF must not block Paddle's webhook calls to `/webhooks/paddle`.** Aggressive bot-fighting or rate-based rules could otherwise treat Paddle's legitimate, high-frequency webhook deliveries as abuse — which would silently break Sale/Payout state updates (04. Security → Webhook Security already establishes signature verification as the trust mechanism there; the WAF shouldn't add a second, uncoordinated layer that can reject legitimate Paddle traffic before signature verification even runs). Allowlist Paddle's published webhook IP ranges explicitly for this endpoint.
 
 ## Logging
 

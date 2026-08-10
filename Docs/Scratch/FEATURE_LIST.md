@@ -6,7 +6,7 @@ Every product feature the frontend needs to support, derived exclusively from th
 
 **How to read this document:** SellVia's docs record decisions chronologically, with later "Update" sections superseding earlier text in the same file. This list reflects the **latest resolved state** as of the most recent updates (through 2026-08-07), not the original/superseded framing. Where a doc contains stale, unresolved, or contradictory statements, this is marked **"Needs clarification"** rather than guessed at. See `SITE_MAP.md` and `SCREEN_INVENTORY.md` for the navigation and screen-level counterparts to this list.
 
-**Critical context for every feature below:** SellVia reversed its checkout model on 2026-08-07. It is now an **external-site tracking / affiliate-network model** — the customer buys on the **merchant's own website**, not on SellVia. SellVia tracks the transaction via a redirect + a tracking snippet the merchant installs + a discount-code fallback, and bills the merchant periodically (monthly) for commissions + platform fee owed, then pays creators after that billing succeeds. There is **no SellVia-hosted checkout page** and no follower-facing payment UI. Several older docs (System Architecture, Frontend Architecture, AI Agent & Machine Readability, early Backend Architecture/API Design/Session Management text) still describe the earlier hosted-checkout, Clerk-auth model and were not fully rewritten after the reversal — treat any mention of "SellVia checkout," "Clerk," or an instant per-sale Stripe split as **superseded**. Current auth provider is **Ory Kratos** (switched from Clerk 2026-08-04).
+**Critical context for every feature below:** SellVia reversed its checkout model on 2026-08-07. It is now an **external-site tracking / affiliate-network model** — the customer buys on the **merchant's own website**, not on SellVia. SellVia tracks the transaction via a redirect + a tracking snippet the merchant installs + a discount-code fallback, and bills the merchant periodically (monthly) for commissions + platform fee owed, then pays creators after that billing succeeds. There is **no SellVia-hosted checkout page** and no follower-facing payment UI. Several older docs (System Architecture, Frontend Architecture, AI Agent & Machine Readability, early Backend Architecture/API Design/Session Management text) still describe the earlier hosted-checkout, Clerk-auth model and were not fully rewritten after the reversal — treat any mention of "SellVia checkout," "Clerk," or an instant per-sale Paddle split as **superseded**. Current auth provider is **Ory Kratos** (switched from Clerk 2026-08-04).
 
 ---
 
@@ -146,17 +146,17 @@ These apply across every module rather than belonging to one screen.
 - **Edge cases:** No follower-count floor for Creator eligibility (merit/fit-based, decided).
 - **Source:** [Business Logic/User Flows], [Business Logic/User Roles], [UX/Interaction Patterns].
 
-### 2.2 Merchant Onboarding: Stripe Setup
+### 2.2 Merchant Onboarding: Paddle Setup
 
 - **Description:** Merchant connects payment infrastructure before any campaign can go live.
 - **User goal:** Get campaigns able to bill/receive funds correctly.
-- **Main user actions:** Complete Stripe onboarding step (add card on file via Stripe Elements/SetupIntent for periodic billing).
-- **Expected frontend behavior:** This is the **only remaining Stripe Elements surface on SellVia's own frontend** (post-reversal) — there is no follower-facing checkout to build. Gate: a Campaign cannot go `draft → live` until this is complete.
-- **Important states:** not started, in progress, complete, Stripe-restricted (auto-pauses all live campaigns, merchant notified with reason + link to update card).
+- **Main user actions:** Complete Paddle onboarding step (add card on file via Paddle Checkout (saved payment method) for periodic billing).
+- **Expected frontend behavior:** This is the **only remaining Paddle Checkout surface on SellVia's own frontend** (post-reversal) — there is no follower-facing checkout to build. Gate: a Campaign cannot go `draft → live` until this is complete.
+- **Important states:** not started, in progress, complete, Paddle-restricted (auto-pauses all live campaigns, merchant notified with reason + link to update card).
 - **Relevant screens:** Merchant Billing Card Setup / Settings.
-- **API/backend dependencies:** Stripe SetupIntent flow; `merchant_profiles.stripe_customer_id`.
+- **API/backend dependencies:** Paddle Checkout flow; `merchant_profiles.paddle_customer_id`.
 - **Permissions/roles:** Merchant only, own account.
-- **Edge cases:** **Needs clarification** — docs are internally inconsistent on whether merchants still need full Stripe **Connect** (KYC/Express) onboarding post-reversal, or only a card-on-file SetupIntent for billing. `merchant_profiles` retains both `stripe_customer_id` (billing) and a seemingly-vestigial `stripe_connect_account_id` ("for merchants who also want to receive payouts through SellVia for something else, not for the sale itself") — the actual merchant onboarding UI requirement should be confirmed before building this screen. Card failure → 3 failed billing attempts over 3 days → auto-suspend live campaigns.
+- **Edge cases:** **Needs clarification** — docs are internally inconsistent on whether merchants still need full Paddle **Connect** (KYC/Express) onboarding post-reversal, or only a card-on-file SetupIntent for billing. `merchant_profiles` retains both `paddle_customer_id` (billing) and a seemingly-vestigial `paddle_seller_id` ("for merchants who also want to receive payouts through SellVia for something else, not for the sale itself") — the actual merchant onboarding UI requirement should be confirmed before building this screen. Card failure → 3 failed billing attempts over 3 days → auto-suspend live campaigns.
 - **Source:** [Product Foundation/MVP Scope], [Business Logic/State Machines], [Database/Table Specifications], [Edge Cases/Business Edge Cases], [Technical Architecture/Frontend Architecture].
 
 ### 2.3 Merchant Onboarding: Tracking Snippet Install
@@ -172,15 +172,15 @@ These apply across every module rather than belonging to one screen.
 - **Edge cases:** Exact UX for this step (copy-paste instructions vs. guided setup vs. automated verification ping) is explicitly **undesigned** — **Needs clarification**.
 - **Source:** [Payments/Payment Flow], [Business Logic/State Machines], [Technical Architecture/Frontend Architecture], [Business Logic/Domain Model].
 
-### 2.4 Creator Onboarding: Stripe Connect
+### 2.4 Creator Onboarding: Paddle
 
-- **Description:** Creator connects a Stripe Express account to receive payouts.
+- **Description:** Creator connects a Paddle seller account to receive payouts.
 - **User goal:** Be able to actually get paid once commissions accrue.
-- **Main user actions:** Complete Stripe Express onboarding (KYC, bank details).
-- **Expected frontend behavior:** A Creator approved for a campaign but with incomplete Stripe onboarding must **not** get an active AffiliateLink yet — block link activation entirely rather than accruing unpayable commission.
+- **Main user actions:** Complete Paddle seller onboarding (KYC, bank details).
+- **Expected frontend behavior:** A Creator approved for a campaign but with incomplete Paddle onboarding must **not** get an active AffiliateLink yet — block link activation entirely rather than accruing unpayable commission.
 - **Important states:** not started, in progress, complete, incomplete-blocking-link.
 - **Relevant screens:** Creator Payout Setup / Settings.
-- **API/backend dependencies:** Stripe Connect Express onboarding; `creator_profiles.stripe_connect_account_id`; `account.updated` webhook.
+- **API/backend dependencies:** Paddle seller onboarding; `creator_profiles.paddle_seller_id`; `seller.updated` webhook.
 - **Permissions/roles:** Creator only, own account.
 - **Edge cases:** Onboarding-incomplete gate is resolved as hard-block (not "link works but payout held").
 - **Source:** [Edge Cases/User Edge Cases], [Technical Architecture/Backend Architecture], [Payments/Tax Considerations].
@@ -207,12 +207,12 @@ These apply across every module rather than belonging to one screen.
 - **Description:** A listing of an Offer with a commission rate attached, open for creators to apply to.
 - **User goal:** Get a product in front of creators with a clear commission offer.
 - **Main user actions:** Set commission rate (merchant-set freely, no platform min/max, no bargaining), publish, pause, resume, end.
-- **Expected frontend behavior:** Very few steps to go live (commission rate, product info, publish — no wizard). `draft → live` blocked until **both** gates pass: Stripe onboarding complete AND tracking snippet verified. Editing commission rate mid-flight does not require re-consent from already-approved creators (they keep their locked rate); new applicants see the new rate.
+- **Expected frontend behavior:** Very few steps to go live (commission rate, product info, publish — no wizard). `draft → live` blocked until **both** gates pass: Paddle onboarding complete AND tracking snippet verified. Editing commission rate mid-flight does not require re-consent from already-approved creators (they keep their locked rate); new applicants see the new rate.
 - **Important states:** draft, live, paused, ended; each gate's pass/fail state visible before publish is attempted.
 - **Relevant screens:** Campaigns list, Create/Edit Campaign, Campaign detail.
 - **API/backend dependencies:** `POST /campaigns`, `PATCH /campaigns/:id`, `PATCH /campaigns/:id/status`.
 - **Permissions/roles:** Merchant (own campaigns only); Admin (any, moderation/vetting override).
-- **Edge cases:** Paused campaigns keep honoring in-flight attribution within the 30-day window, accept no new applications; ended campaigns stop attributing new clicks immediately but honor pre-end clicks within the window; high-commission/high-risk campaigns require Admin vetting before going live (raw-data-doc concept, thresholds undefined — **Needs clarification**); Stripe-restriction auto-pauses all live campaigns.
+- **Edge cases:** Paused campaigns keep honoring in-flight attribution within the 30-day window, accept no new applications; ended campaigns stop attributing new clicks immediately but honor pre-end clicks within the window; high-commission/high-risk campaigns require Admin vetting before going live (raw-data-doc concept, thresholds undefined — **Needs clarification**); Paddle-restriction auto-pauses all live campaigns.
 - **Source:** [Business Logic/State Machines], [Business Logic/Business Rules], [UX/Interaction Patterns], [Operations/Admin Panel].
 
 ### 3.3 Application Review
@@ -395,7 +395,7 @@ These apply across every module rather than belonging to one screen.
 ### 5.4 Refund / Dispute (Chargeback) Handling
 
 - **Description:** Manual refund-credit review and chargeback evidence submission.
-- **Main user actions:** Approve/deny refund credit requests, submit chargeback evidence to Stripe.
+- **Main user actions:** Approve/deny refund credit requests, submit chargeback evidence to Paddle.
 - **Important states:** SellVia absorbs a merchant's first 5 lost disputes (lifetime counter); merchant pays from the 6th onward.
 - **Relevant screens:** Refund/Dispute Handling queue.
 - **API/backend dependencies:** Not explicitly named in Endpoint Specifications — **Needs clarification**.
@@ -405,9 +405,9 @@ These apply across every module rather than belonging to one screen.
 
 ### 5.5 Reconciliation Review
 
-- **Description:** Surfaces mismatches between internal records and Stripe for manual investigation.
+- **Description:** Surfaces mismatches between internal records and Paddle for manual investigation.
 - **Main user actions:** Review flagged mismatch, investigate, resolve.
-- **Important caveat:** Under the external-tracking model, reconciliation can verify the billing/payout legs against Stripe, but can no longer independently confirm the underlying sale happened as reported — that trust now rests entirely on Fraud Prevention's merchant-reporting checks.
+- **Important caveat:** Under the external-tracking model, reconciliation can verify the billing/payout legs against Paddle, but can no longer independently confirm the underlying sale happened as reported — that trust now rests entirely on Fraud Prevention's merchant-reporting checks.
 - **Relevant screens:** Reconciliation Review queue.
 - **API/backend dependencies:** Daily automated reconciliation job surfaces results here; endpoint not explicitly named — **Needs clarification**.
 - **Permissions/roles:** Admin only.
@@ -509,9 +509,9 @@ These apply across every module rather than belonging to one screen.
 
 ### 7.3 Data Disclosure Notices
 
-- **Description:** Plain-language notices at the point of data collection (signup, before Stripe connection, before AI-matching use of profile data) — not buried in a ToS.
-- **Expected frontend behavior:** Short, contextual, timed notices woven into the relevant flow (signup form, Stripe-connect step, profile-completion step for creators).
-- **Relevant screens:** Embedded in Signup, Stripe Onboarding, Creator Profile Settings — not a standalone screen.
+- **Description:** Plain-language notices at the point of data collection (signup, before Paddle connection, before AI-matching use of profile data) — not buried in a ToS.
+- **Expected frontend behavior:** Short, contextual, timed notices woven into the relevant flow (signup form, Paddle-connect step, profile-completion step for creators).
+- **Relevant screens:** Embedded in Signup, Paddle Onboarding, Creator Profile Settings — not a standalone screen.
 - **Source:** [Security/Data Inventory & Disclosure].
 
 ---
@@ -523,7 +523,7 @@ For quick reference, every open item flagged above:
 1. Admin role's full formal scope (used broadly throughout but never explicitly ratified).
 2. Waitlist signup endpoint not explicitly specified.
 3. Whether Offer needs its own entity vs. one-campaign-per-offer.
-4. Merchant Stripe requirement post-reversal: full Connect/KYC onboarding vs. card-on-file SetupIntent only.
+4. Merchant Paddle requirement post-reversal: full Connect/KYC onboarding vs. card-on-file SetupIntent only.
 5. Exact UX for the tracking-snippet install step (copy-paste vs. guided vs. auto-verify).
 6. Application-rejection notification content/whether a reason is shown.
 7. Real-time vs. digest cadence for "sale made" / merchant notifications.

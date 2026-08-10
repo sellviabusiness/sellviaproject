@@ -8,7 +8,7 @@ What runs outside the request/response cycle, and why.
 
 1. **Webhook processing** — as described in Event-Driven Architecture, webhook handlers enqueue work rather than processing inline
 2. **Notification delivery** — sending emails/push notifications per 01. Business Logic → Notification Logic's triggers; should never block the request that caused them
-3. **Payout batching** — even though the Stripe *split* is instant, checking which creators have crossed the $50 threshold and triggering their bank payout is a natural periodic job (e.g. runs every few hours) rather than a real-time check on every single sale
+3. **Payout batching** — even though the Paddle *split* is instant, checking which creators have crossed the $50 threshold and triggering their bank payout is a natural periodic job (e.g. runs every few hours) rather than a real-time check on every single sale
 4. **Refund clawback processing** — when a `charge.refunded` webhook arrives, calculating and applying the 14-day-window clawback rule
 5. **Attribution window expiry cleanup** — marking AttributionEvents outside the 30-day window as no longer eligible for a Sale, if a click's window lapses without a purchase
 
@@ -23,7 +23,7 @@ Redis-backed queue (e.g. BullMQ, given the Node/Next.js stack) — lightweight, 
 
 ## Open Questions
 
-- Exact payout batch frequency (hourly? every 15 min? daily?) — more frequent is closer to "instant," but adds Stripe payout costs and complexity; recommend starting with a few-times-daily batch and tightening later if needed
+- Exact payout batch frequency (hourly? every 15 min? daily?) — more frequent is closer to "instant," but adds Paddle payout costs and complexity; recommend starting with a few-times-daily batch and tightening later if needed
 
 ## Update (2026-08-03): Celery replaces BullMQ
 

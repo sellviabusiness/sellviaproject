@@ -74,11 +74,11 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 ```
 /onboarding/role                           [Inferred — if role selection isn't inline on /register]
-/onboarding/merchant/stripe                [Inferred — Stripe card-on-file / billing setup step,
+/onboarding/merchant/paddle                [Inferred — Paddle card-on-file / billing setup step,
                                              gates Campaign draft→live]
 /onboarding/merchant/tracking-snippet      [Inferred — snippet install + verification step, gates
                                              Campaign draft→live]
-/onboarding/creator/payout                 [Inferred — Stripe Connect Express onboarding, gates
+/onboarding/creator/payout                 [Inferred — Paddle seller onboarding, gates
                                              AffiliateLink activation]
 ```
 
@@ -116,7 +116,7 @@ Per `UX/Navigation`: **Campaigns / Applications / Sales / Payouts** are the name
 │   └── /payouts/:id  (or /billing/:id)    [Inferred — billing cycle detail]
 ├── /settings
 │   ├── /settings/business                 [Inferred — MerchantProfile edit]
-│   ├── /settings/billing                  [Inferred — Stripe card-on-file management]
+│   ├── /settings/billing                  [Inferred — Paddle card-on-file management]
 │   └── /settings/security                 [Inferred — sessions, MFA, password]
 └── /notifications                         [Inferred — shared notification feed]
 ```
@@ -143,7 +143,7 @@ Per `UX/Navigation`: **Discover / My Links / Earnings** are the named top-level 
                                              $50-threshold progress, payout history]
 ├── /settings
 │   ├── /settings/profile                  [Inferred — CreatorProfile edit: niche, audience, rate]
-│   ├── /settings/payout                   [Inferred — Stripe Connect Express management]
+│   ├── /settings/payout                   [Inferred — Paddle seller management]
 │   └── /settings/security                 [Inferred]
 └── /notifications                         [Inferred — shared component]
 ```
@@ -168,7 +168,7 @@ Per `UX/Navigation`: "**Admin nav is entirely separate (`/admin/*`), not exposed
 │   └── /admin/users/:id                   [Inferred — user detail, suspend action;
                                              POST /admin/users/:id/suspend]
 ├── /admin/refunds-disputes                [Inferred — refund credit review + chargeback evidence]
-├── /admin/reconciliation                  [Inferred — Stripe-vs-internal-records mismatch review]
+├── /admin/reconciliation                  [Inferred — Paddle-vs-internal-records mismatch review]
 ├── /admin/waitlist                        [Inferred — waitlist → beta invitation management]
 ├── /admin/at-risk-users                   [Inferred — 48h churn-signal view]
 ├── /admin/console                         [Inferred — Founder AI Command Console, chat-style

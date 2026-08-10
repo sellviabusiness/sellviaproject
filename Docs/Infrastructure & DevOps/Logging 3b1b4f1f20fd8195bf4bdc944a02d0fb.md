@@ -34,9 +34,9 @@ Two distinct IDs, not one, because they answer different questions:
 - **`request_id`** — unique per single HTTP request. Answers "what happened during this one API call."
 - **`correlation_id`** — unique per logical operation, generated once at the entry point and **propagated through every subsequent step**, even across service and process boundaries. Answers "show me everything that happened as a result of this one user action."
 
-**Example: a checkout.** A correlation ID is generated when the checkout session starts. It's carried through: the checkout API request → the Stripe PaymentIntent creation → the Celery job payload when the webhook enqueues background work (02. Background Jobs' job payloads now carry `correlation_id` alongside the `tenant_id` already required per Tenant Isolation Audit's Gap 2) → the webhook processing itself → the notification that gets sent. One correlation ID, one complete story, queryable as a single trace even though it spans the FastAPI backend, Celery, and an external Stripe webhook callback.
+**Example: a checkout.** A correlation ID is generated when the checkout session starts. It's carried through: the checkout API request → the Paddle transaction creation → the Celery job payload when the webhook enqueues background work (02. Background Jobs' job payloads now carry `correlation_id` alongside the `tenant_id` already required per Tenant Isolation Audit's Gap 2) → the webhook processing itself → the notification that gets sent. One correlation ID, one complete story, queryable as a single trace even though it spans the FastAPI backend, Celery, and an external Paddle webhook callback.
 
-**Where it can't be generated at the true origin:** for a Stripe webhook (which doesn't know SellVia's correlation ID scheme), map it back via the PaymentIntent or Sale ID already stored — the correlation ID is attached the moment the webhook handler resolves which internal operation it belongs to.
+**Where it can't be generated at the true origin:** for a Paddle webhook (which doesn't know SellVia's correlation ID scheme), map it back via the Paddle transaction or Sale ID already stored — the correlation ID is attached the moment the webhook handler resolves which internal operation it belongs to.
 
 ## Log Level Discipline — Not Everything Is ERROR, Not Everything Is INFO
 

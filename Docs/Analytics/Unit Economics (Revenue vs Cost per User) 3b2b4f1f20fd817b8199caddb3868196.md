@@ -15,7 +15,7 @@ Two components, kept distinct rather than blended into one fuzzy number:
 
 **Directly attributable** (precise, per-user):
 
-- Stripe processing fees on their transactions (see Monthly P&L — this is a newly-tracked cost, not previously accounted for anywhere)
+- Paddle processing fees on their transactions (see Monthly P&L — this is a newly-tracked cost, not previously accounted for anywhere)
 - AI/token costs tied to that user (from AI / Token Usage Tracking, filtered by `related_user_id`)
 
 **Allocated** (shared costs, split evenly — simple starting model):
@@ -25,7 +25,7 @@ Two components, kept distinct rather than blended into one fuzzy number:
 ## Net Contribution (Merchants Only)
 
 ```
-Net contribution per merchant = Merchant revenue − (Stripe fees + AI costs + allocated infra share)
+Net contribution per merchant = Merchant revenue − (Paddle fees + AI costs + allocated infra share)
 ```
 
 For Creators, there's no revenue side to net against — cost-per-creator is tracked as a standalone number, evaluated against GMV driven, not against a revenue figure that doesn't exist.

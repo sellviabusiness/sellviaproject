@@ -18,7 +18,7 @@ How every request proves who's calling — implementation detail behind 04. Secu
 
 - Public: campaign discovery/browse (no auth required to view live campaigns)
 - Authenticated: everything involving a specific Merchant's or Creator's own data
-- The Stripe webhook endpoint is a special case — deliberately NOT Clerk-authenticated, secured instead via Stripe signature verification (04. Security → Webhook Security)
+- The Paddle webhook endpoint is a special case — deliberately NOT Clerk-authenticated, secured instead via Paddle signature verification (04. Security → Webhook Security)
 
 ## Open Questions
 

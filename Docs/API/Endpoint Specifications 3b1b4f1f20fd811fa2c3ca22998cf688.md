@@ -25,7 +25,7 @@ The concrete endpoint list — direct implementation of 03. Database's tables an
 
 - `GET /go/:slug` — the redirect endpoint an AffiliateLink resolves to (public, no auth) — logs the click, redirects to the merchant's product page with attribution reference attached
 - `GET /sales` — Merchant/Creator, scoped to their own
-- Sale status transitions happen via the Stripe webhook handler, not a direct client-facing endpoint (per 02. Event-Driven Architecture)
+- Sale status transitions happen via the Paddle webhook handler, not a direct client-facing endpoint (per 02. Event-Driven Architecture)
 
 ## Payouts
 

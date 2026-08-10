@@ -12,7 +12,7 @@ How the two dashboards behave, not just how they look — [design.md](http://des
 
 - **Campaign creation → live:** should feel like very few steps (per the raw data doc's original "minimize form fields, add defaults" goal) — commission rate, product info, publish. No multi-page wizard for MVP.
 - **Application → approval → link generation:** the approval action should immediately surface the generated AffiliateLink to the Creator (real-time or near-real-time notification, not a delayed email only) — this is one of the product's core "trust moments" and shouldn't feel like a black box.
-- **Checkout:** per [design.md](http://design.md)'s restrained-animation rule, the hosted checkout page should feel calm and fast, not gamified — consistent with 02. Frontend Architecture's recommendation to use Stripe Elements within SellVia's own branded shell rather than building novel checkout UI patterns.
+- **Checkout:** per [design.md](http://design.md)'s restrained-animation rule, the hosted checkout page should feel calm and fast, not gamified — consistent with 02. Frontend Architecture's recommendation to use Paddle Checkout within SellVia's own branded shell rather than building novel checkout UI patterns.
 
 ## Loading/Transition States
 

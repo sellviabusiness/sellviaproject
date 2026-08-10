@@ -8,7 +8,7 @@ One table: every external dependency and internal component, what breaks if it f
 
 | Component | If it fails | Blast radius | Mitigation | Detail |
 | --- | --- | --- | --- | --- |
-| **Stripe** | No billing cycles or creator payouts possible — checkout itself is unaffected since it happens on the merchant's own site | Commissions accrue normally, payouts delay until Stripe recovers | Managed provider reliability | 08. Failure Scenarios |
+| **Paddle** | No billing cycles or creator payouts possible — checkout itself is unaffected since it happens on the merchant's own site | Commissions accrue normally, payouts delay until Paddle recovers | Managed provider reliability | 08. Failure Scenarios |
 | **Ory Kratos / Ory Network** | No login/signup | No new sessions; existing sessions continue until expiry; public campaign browsing unaffected | Ory Network managed reliability; self-host migration path exists if needed | 04. Authentication |
 | **Supabase (MVP) / Neon (later)** | Full outage — database is the source of truth for everything | Total app outage | Managed provider reliability; Disaster Recovery point-in-time restore; Neon migration path if Supabase specifically becomes the bottleneck | 06. Disaster Recovery, 06. Hosting Strategy |
 | **Cloudflare** | DNS/CDN/WAF down | Total app unreachable (everything sits behind it) | This is the single largest concentration of risk in the stack — worth knowing plainly, not just accepted silently | 06. Hosting Strategy, 06. WAF Configuration |
@@ -29,7 +29,7 @@ One table: every external dependency and internal component, what breaks if it f
 - Partial refund commission handling — unresolved (05. Refund Handling)
 - Chargeback dispute fee allocation — RESOLVED 2026-08-07: SellVia absorbs it for a merchant's first 5 lost disputes, merchant pays from the 6th onward (05. Chargebacks)
 - Self-dealing (dual-role account applying to own campaign) — RESOLVED 2026-08-07: blocked outright (08. User Edge Cases)
-- Merchant Stripe account restricted mid-campaign — RESOLVED 2026-08-07: auto-pause all live campaigns immediately (08. Business Edge Cases)
+- Merchant Paddle account restricted mid-campaign — RESOLVED 2026-08-07: auto-pause all live campaigns immediately (08. Business Edge Cases)
 - Refund clawback with insufficient future creator balance to absorb it — accepted as a real cost of doing business, not solved away (08. Payment Edge Cases)
 
 ## Reading This Table

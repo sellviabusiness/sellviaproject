@@ -35,7 +35,7 @@ pending → disputed / failed
 verified → refunded (triggers clawback per Commission Engine's 14-day rule)
 ```
 
-- "Verified" = payment completed successfully, set the instant Stripe payment clears.
+- "Verified" = payment completed successfully, set the instant Paddle payment clears.
 
 ## Payout State Machine
 
@@ -47,7 +47,7 @@ processing → paid
 processing → failed → pending (retry)
 ```
 
-- Threshold-based for creators ($50). Merchant payout is NOT threshold-gated (decided default — see Money Flow): merchants ride Stripe's standard rolling payout schedule regardless of sale size, since it's their core revenue rather than a bonus balance.
+- Threshold-based for creators ($50). Merchant payout is NOT threshold-gated (decided default — see Money Flow): merchants ride Paddle's standard rolling payout schedule regardless of sale size, since it's their core revenue rather than a bonus balance.
 
 ## Open Questions
 
@@ -143,11 +143,11 @@ processing → failed → pending (retry)
 
 ## Update (2026-08-07): Snippet Verification Gate Added to draft → live
 
-**Founder-confirmed: a Campaign cannot transition from `draft` to `live` until the merchant's tracking snippet is verified installed** (01. Money Flow, 05. Payment Flow) — a second gate alongside the existing Stripe-onboarding-complete requirement (08. Business Edge Cases). Verification: SellVia can check for the snippet's presence via a test ping/handshake when the merchant attempts to publish, rather than just trusting they installed it correctly.
+**Founder-confirmed: a Campaign cannot transition from `draft` to `live` until the merchant's tracking snippet is verified installed** (01. Money Flow, 05. Payment Flow) — a second gate alongside the existing Paddle-onboarding-complete requirement (08. Business Edge Cases). Verification: SellVia can check for the snippet's presence via a test ping/handshake when the merchant attempts to publish, rather than just trusting they installed it correctly.
 
 **Both gates on `draft → live` now:**
 
-1. Stripe Connect onboarding complete (08. Business Edge Cases)
+1. Paddle onboarding complete (08. Business Edge Cases)
 2. Tracking snippet verified installed (this update)
 
 Neither is optional — a campaign with no way to receive payouts, or no way to have its sales tracked, shouldn't be able to go live regardless of which gate is missing.
@@ -156,7 +156,7 @@ Neither is optional — a campaign with no way to receive payouts, or no way to 
 
 **Confirmed: automatic campaign suspension after 3 failed billing attempts over 3 days** (e.g. immediate retry, then +24h, then +48h) — no longer a working default. On the 3rd consecutive failure:
 
-- Merchant's live Campaigns auto-transition to `paused` (same mechanism already built for Stripe Connect restriction, 08. Business Edge Cases — reused, not reinvented)
+- Merchant's live Campaigns auto-transition to `paused` (same mechanism already built for Paddle restriction, 08. Business Edge Cases — reused, not reinvented)
 - Merchant notified with a clear reason and a way to update their card (02. Frontend Architecture's billing card page)
 - BillingCycle stays in `failed` status, accumulating (not lost) until the merchant resolves it and a retry succeeds
 - Creators' commission for that cycle remains unpaid until resolved — consistent with bill-first-then-pay (01. Money Flow)
