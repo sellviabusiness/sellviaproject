@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/*
+  Design tokens per Docs/UX/Design System.
+  Dark is the documented brand theme (black bg, lime accent, white/gray text).
+  Light is a new addition per explicit product decision (not in Docs/UX/Design System) —
+  same lime accent, same type/radius/spacing rules, inverted neutrals.
+  Lime is never used as text color in either theme (Docs/UX/Accessibility flags lime-as-text
+  contrast as unverified) — reserved for the primary CTA background, borders, and focus rings.
+*/
+
+:root {
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0a;
+  --color-muted-foreground: #52525b;
+  --color-muted-foreground-2: #71717a;
+  --color-card: #ffffff;
+  --color-border: #e4e4e7;
+  --color-border-hover: #d4d4d8;
+  --color-accent: #bfff13;
+  --color-accent-foreground: #000000;
+  --color-danger: #b91c1c;
+  --color-danger-border: #fca5a5;
+  --color-danger-bg: #fef2f2;
+  --color-success: #15803d;
+
+  --radius-sm: 10px;
+  --radius-md: 12px;
+}
+
+.dark {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-muted-foreground: #a1a1aa;
+  --color-muted-foreground-2: #71717a;
+  --color-card: #000000;
+  --color-border: #27272a;
+  --color-border-hover: #3f3f46;
+  --color-accent: #bfff13;
+  --color-accent-foreground: #000000;
+  --color-danger: #f87171;
+  --color-danger-border: #7f1d1d;
+  --color-danger-bg: #1a0a0a;
+  --color-success: #4ade80;
+}
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-muted-foreground-2: var(--color-muted-foreground-2);
+  --color-card: var(--color-card);
+  --color-border: var(--color-border);
+  --color-border-hover: var(--color-border-hover);
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-danger: var(--color-danger);
+  --color-danger-border: var(--color-danger-border);
+  --color-danger-bg: var(--color-danger-bg);
+  --color-success: var(--color-success);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --font-sans: var(--font-figtree);
+  --font-heading: var(--font-outfit);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Restrained animation per Docs/UX/Design System — fades and opacity/border transitions only. */
+* {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0ms;
+  }
+}
