@@ -32,9 +32,9 @@ HTTP status still reflects the outcome (200/201/400/401/404/422/500) — the env
 
 Backend adds a row **before or the same day** it starts an endpoint (status `planned`), updates it when the shape is final (status `ready`) and when it's actually deployed to local/dev (status `live`). Frontend only builds against `ready`/`live` rows — anything `planned` is not stable yet, ask first.
 
-| Endpoint | Method | Status | Request | Response | Owner | Notes |
-|---|---|---|---|---|---|---|
-| `/health` | GET | live | — | `{status, env}` | backend | no envelope, infra check only |
+| Endpoint  | Method | Status | Request | Response        | Owner   | Notes                          |
+|-----------|--------|--------|---------|-----------------|---------|--------------------------------|
+| `/health` | GET    | live   | —       | `{status, env}` | backend | no envelope, infra check only  |
 
 *(Add rows as endpoints are built. Keep it append-only — don't delete old rows, mark `deprecated` instead.)*
 
