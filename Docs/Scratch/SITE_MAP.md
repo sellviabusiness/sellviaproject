@@ -24,7 +24,7 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 ## 1. Public Site
 
-```
+```text
 /                                          [Explicit — wesellvia.com home: hero, concept walkthrough,
                                              roadmap, FAQ, waitlist form]
 ├── /how-it-works                          [Inferred — nav link named "How It Works" in design.md/Navigation]
@@ -54,7 +54,7 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 ## 2. Authentication Routes (Shared Shell, Pre-Role)
 
-```
+```text
 /login                                     [Inferred — conventional route; Ory Kratos-driven]
 /register                                  [Inferred — unified signup form, role selection inside]
 /forgot-password                           [Inferred]
@@ -72,13 +72,13 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 ## 3. Onboarding (Post-Signup, Pre-Dashboard)
 
-```
+```text
 /onboarding/role                           [Inferred — if role selection isn't inline on /register]
-/onboarding/merchant/stripe                [Inferred — Stripe card-on-file / billing setup step,
+/onboarding/merchant/paddle                [Inferred — Paddle card-on-file / billing setup step,
                                              gates Campaign draft→live]
 /onboarding/merchant/tracking-snippet      [Inferred — snippet install + verification step, gates
                                              Campaign draft→live]
-/onboarding/creator/payout                 [Inferred — Stripe Connect Express onboarding, gates
+/onboarding/creator/payout                 [Inferred — Paddle seller onboarding, gates
                                              AffiliateLink activation]
 ```
 
@@ -92,7 +92,7 @@ Per `Technical Architecture/Frontend Architecture`, SellVia's frontend has two l
 
 Per `UX/Navigation`: **Campaigns / Applications / Sales / Payouts** are the named top-level nav sections for the Merchant role. Flat, no deep nesting, no mega-menus.
 
-```
+```text
 /dashboard                                 [Inferred — Merchant home/overview if role = merchant;
                                              see §7 for dual-role landing behavior]
 ├── /offers                                [Inferred — Offer list; Offers aren't a named nav item in
@@ -116,7 +116,7 @@ Per `UX/Navigation`: **Campaigns / Applications / Sales / Payouts** are the name
 │   └── /payouts/:id  (or /billing/:id)    [Inferred — billing cycle detail]
 ├── /settings
 │   ├── /settings/business                 [Inferred — MerchantProfile edit]
-│   ├── /settings/billing                  [Inferred — Stripe card-on-file management]
+│   ├── /settings/billing                  [Inferred — Paddle card-on-file management]
 │   └── /settings/security                 [Inferred — sessions, MFA, password]
 └── /notifications                         [Inferred — shared notification feed]
 ```
@@ -129,7 +129,7 @@ Per `UX/Navigation`: **Campaigns / Applications / Sales / Payouts** are the name
 
 Per `UX/Navigation`: **Discover / My Links / Earnings** are the named top-level nav sections for the Creator role.
 
-```
+```text
 /dashboard                                 [Inferred — Creator home/overview if role = creator]
 ├── /discover                              [Explicit — named nav section; campaign browse/apply,
                                              authenticated version of the public /campaigns list]
@@ -143,7 +143,7 @@ Per `UX/Navigation`: **Discover / My Links / Earnings** are the named top-level 
                                              $50-threshold progress, payout history]
 ├── /settings
 │   ├── /settings/profile                  [Inferred — CreatorProfile edit: niche, audience, rate]
-│   ├── /settings/payout                   [Inferred — Stripe Connect Express management]
+│   ├── /settings/payout                   [Inferred — Paddle seller management]
 │   └── /settings/security                 [Inferred]
 └── /notifications                         [Inferred — shared component]
 ```
@@ -156,7 +156,7 @@ Per `UX/Navigation`: **Discover / My Links / Earnings** are the named top-level 
 
 Per `UX/Navigation`: "**Admin nav is entirely separate (`/admin/*`), not exposed to regular Merchant/Creator navigation at all.**" — [Explicit] namespace, [Inferred] sub-routes based on `Operations/Admin Panel`'s named screens.
 
-```
+```text
 /admin
 ├── /admin/dashboard                       [Inferred — marketplace health, funnels, time-to-payout]
 ├── /admin/moderation                      [Inferred — flagged Sales/Applications queue;
@@ -168,7 +168,7 @@ Per `UX/Navigation`: "**Admin nav is entirely separate (`/admin/*`), not exposed
 │   └── /admin/users/:id                   [Inferred — user detail, suspend action;
                                              POST /admin/users/:id/suspend]
 ├── /admin/refunds-disputes                [Inferred — refund credit review + chargeback evidence]
-├── /admin/reconciliation                  [Inferred — Stripe-vs-internal-records mismatch review]
+├── /admin/reconciliation                  [Inferred — Paddle-vs-internal-records mismatch review]
 ├── /admin/waitlist                        [Inferred — waitlist → beta invitation management]
 ├── /admin/at-risk-users                   [Inferred — 48h churn-signal view]
 ├── /admin/console                         [Inferred — Founder AI Command Console, chat-style
@@ -200,7 +200,7 @@ This site map does not prescribe which; `SCREEN_INVENTORY.md` treats Merchant an
 
 ## 8. Full Hierarchy (Condensed Tree)
 
-```
+```text
 /
 ├── / (marketing home)
 ├── /how-it-works

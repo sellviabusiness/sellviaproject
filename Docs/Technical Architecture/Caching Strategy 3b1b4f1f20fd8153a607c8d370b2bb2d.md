@@ -6,7 +6,7 @@ What gets cached, why, and for how long — kept deliberately light for MVP give
 
 ## What NOT to Cache
 
-- Anything related to balances, payouts, or commission amounts — these must always be read live from the database (or Stripe directly), never from a cache, given they're financial figures a user might act on
+- Anything related to balances, payouts, or commission amounts — these must always be read live from the database (or Paddle directly), never from a cache, given they're financial figures a user might act on
 - Sale/Application state — same reasoning; staleness here is a trust problem, not just a UX inconvenience
 
 ## What's Reasonable to Cache
@@ -29,7 +29,7 @@ Redis, same instance used for background job queues (see Background Jobs) — no
 
 **Rule: every cached query, cache fragment, and cached API response that touches tenant-private data must include the tenant ID in its cache key, with no exceptions.** Examples of correct keying:
 
-```
+```text
 merchant:{merchant_profile_id}:campaigns
 creator:{creator_profile_id}:earnings_summary
 merchant:{merchant_profile_id}:sales:2026-08
@@ -41,7 +41,7 @@ A cache key that omits tenant context for private data is a bug, full stop — n
 
 Public campaign discovery listings (visible identically to every Creator, by design — see 01. Business Logic → User Flows) are **not** tenant-private data — there's no tenant boundary being crossed by sharing them. These get a separate, explicitly-named `public:` namespace:
 
-```
+```text
 public:campaigns:discovery:page-1
 ```
 

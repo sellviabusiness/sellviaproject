@@ -2,12 +2,12 @@
 
 ## Purpose
 
-What SellVia needs to handle for tax compliance — largely offloaded to Stripe, but worth documenting what isn't.
+What SellVia needs to handle for tax compliance — largely offloaded to Paddle, but worth documenting what isn't.
 
-## Handled by Stripe Connect
+## Handled by Paddle
 
-- 1099 generation (US) for creators/merchants earning above IRS thresholds, since Stripe Connect Express accounts (02. Backend Architecture) handle this natively for platforms
-- W-8/W-9 style tax form collection during Stripe's own onboarding flow
+- 1099 generation (US) for creators/merchants earning above IRS thresholds, since Paddle seller accounts (02. Backend Architecture) handle this natively for platforms
+- W-8/W-9 style tax form collection during Paddle's own onboarding flow
 
 ## What SellVia Still Needs to Think About
 
@@ -16,7 +16,7 @@ What SellVia needs to handle for tax compliance — largely offloaded to Stripe,
 
 ## Open Questions (genuinely unresolved, not defaults — recommend real professional input)
 
-- Sales tax/VAT collection on checkout — significant enough that it may need dedicated tooling (e.g. Stripe Tax) rather than a simple internal calculation
+- Sales tax/VAT collection on checkout — significant enough that it may need dedicated tooling (e.g. Paddle Tax) rather than a simple internal calculation
 - Multi-jurisdiction tax obligations given USD/EUR/GBP support across potentially US/EU/UK customers
 
 ## Deferred (2026-08-04): Jurisdiction-Specific Compliance
@@ -29,13 +29,20 @@ Founder has explicitly deferred legal/compliance review to later, not blocking M
 
 **Recommend revisiting before Public Launch, not before Private Beta** — real legal counsel input needed here, not something to resolve by documentation alone.
 
-## Update (2026-08-04): Stripe Tax — Direction Chosen, Not Yet Implemented
+## Update (2026-08-04): Stripe Tax — Direction Chosen, Not Yet Implemented (superseded 2026-08-10, see below)
 
-**Decided: Stripe Tax**, not a Merchant-of-Record provider (Lemon Squeezy/Paddle were considered and explicitly rejected — those require becoming the legal seller of every transaction, which is structurally incompatible with the three-way Stripe Connect split — Merchant share, Creator commission, SellVia platform fee — already built throughout 01. Business Logic and 05. Payments).
+**Decided at the time: Stripe Tax**, not a Merchant-of-Record provider (Lemon Squeezy/Paddle were considered and explicitly rejected — those require becoming the legal seller of every transaction, which was structurally incompatible with the three-way Stripe Connect split — Merchant share, Creator commission, SellVia platform fee — already built throughout 01. Business Logic and 05. Payments at the time).
 
-**Why Stripe Tax fits without disrupting anything already built:** it plugs directly into the existing Stripe Connect setup rather than replacing it — calculates and collects the correct sales tax/VAT per transaction, per jurisdiction, without touching the split logic in Commission Engine or Money Flow.
+**Still genuinely open regardless of tooling choice:**
 
-**Still genuinely open, not resolved by this choice alone:**n- **US marketplace facilitator laws** — many states can make SellVia itself (as the platform) legally responsible for collecting/remitting sales tax on facilitated transactions, not each Merchant individually. Stripe Tax can handle the calculation/collection mechanics, but *whether SellVia or each Merchant is the liable party* is a legal question, not a tooling question.n- This remains part of the compliance review the founder has explicitly deferred to end of build (see the deferred-compliance note already on this page, and MVP Scope) — Stripe Tax is now the planned mechanism, but implementation and the liability question both wait for that review, not built speculatively now.
+- **US marketplace facilitator laws** — many states can make SellVia itself (as the platform) legally responsible for collecting/remitting sales tax on facilitated transactions, not each Merchant individually. The tax tool can handle the calculation/collection mechanics, but *whether SellVia or each Merchant is the liable party* is a legal question, not a tooling question.
+- This remains part of the compliance review the founder has explicitly deferred to end of build (see the deferred-compliance note already on this page, and MVP Scope) — implementation and the liability question both wait for that review, not built speculatively now.
+
+## Update (2026-08-10): Paddle Tax Replaces Stripe Tax
+
+**Founder decision: Paddle across the board** (02. Architecture Decision Log) — Paddle is now the processor itself, not just a tax add-on, since Paddle *is* a Merchant-of-Record provider, the exact model the 2026-08-04 entry above rejected. That rejection reasoning no longer applies: the "three-way split" it was protecting is now handled differently (periodic merchant billing, not a live per-sale split — 01. Money Flow, reversed 2026-08-07), so the original MoR objection is moot.
+
+**Paddle Tax** calculates and collects sales tax/VAT per transaction, per jurisdiction, as part of Paddle's native MoR handling — this is arguably a *better* fit than the bolt-on Stripe Tax was, since Paddle's tax handling is core to its MoR model rather than an add-on. The marketplace-facilitator-law liability question above is unchanged — still a legal question pending the deferred compliance review, not resolved by which processor is used.
 
 ## Update (2026-08-04): Data Retention Added to Deferred List
 

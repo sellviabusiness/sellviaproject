@@ -6,14 +6,14 @@ The single picture of how all of SellVia's pieces fit together — every other d
 
 ## High-Level Diagram
 
-```
+```text
                Cloudflare (DNS, CDN, DDoS)
                        ↓
                Next.js App (frontend + API routes)
                        ↓
        ────────────────────────────────────
        ↓                   ↓                       ↓
-Clerk (auth)         Stripe Connect          Background Workers
+Clerk (auth)         Paddle          Background Workers
        ↓             (checkout, splits,          ↓
 PostgreSQL           payouts, webhooks)      Redis (queues, cache)
 (source of truth)         ↓                       ↓
@@ -22,14 +22,14 @@ PostgreSQL           payouts, webhooks)      Redis (queues, cache)
 
 ## Core Principle
 
-SellVia is a **hosted-checkout marketplace**, not a click-tracking-only affiliate network (see 01. Business Logic → Money Flow). This shapes the whole architecture: the backend isn't just storing links and reading pixels — it's a real payments system built around Stripe Connect, so correctness and auditability of money movement matter more than in a typical CRUD app.
+SellVia is a **hosted-checkout marketplace**, not a click-tracking-only affiliate network (see 01. Business Logic → Money Flow). This shapes the whole architecture: the backend isn't just storing links and reading pixels — it's a real payments system built around Paddle, so correctness and auditability of money movement matter more than in a typical CRUD app.
 
 ## Major Components
 
 1. **Frontend** — merchant dashboard, creator dashboard, public campaign discovery, hosted checkout pages (see Frontend Architecture)
 2. **Backend / API** — auth-gated REST API serving the frontend and handling business logic (see Backend Architecture, API Design)
 3. **Auth** — Clerk, handling sign-up/login/session for Merchant/Creator/Admin roles (see 04. Security → Authentication)
-4. **Payments** — Stripe Connect for checkout, the three-way split, and payouts (see Backend Architecture, and 01. Business Logic → Commission Engine/Money Flow for the business rules this implements)
+4. **Payments** — Paddle for checkout, the three-way split, and payouts (see Backend Architecture, and 01. Business Logic → Commission Engine/Money Flow for the business rules this implements)
 5. **Database** — PostgreSQL as the single source of truth for all entities (see 03. Database)
 6. **Background workers** — handle anything that shouldn't block a user-facing request: webhook processing, payout batching, notification delivery (see Background Jobs)
 7. **Cache/queues** — Redis, for both caching and job queues (see Caching Strategy, Background Jobs)
@@ -41,7 +41,7 @@ Discussed but not yet built: creator↔campaign matching, application screening 
 
 ## Environments
 
-Per the earlier infrastructure conversation: Local → Staging ([staging.wesellvia.com](http://staging.wesellvia.com)) → Production ([wesellvia.com](http://wesellvia.com)), each with fully separate databases, Stripe modes (test vs. live), and file storage buckets. See 06. Infrastructure & DevOps (not yet written) for the full environment strategy — that conversation already covered most of this in depth and should be ported into Notion next.
+Per the earlier infrastructure conversation: Local → Staging ([staging.wesellvia.com](http://staging.wesellvia.com)) → Production ([wesellvia.com](http://wesellvia.com)), each with fully separate databases, Paddle modes (test vs. live), and file storage buckets. See 06. Infrastructure & DevOps (not yet written) for the full environment strategy — that conversation already covered most of this in depth and should be ported into Notion next.
 
 ## Open Questions
 
@@ -55,7 +55,7 @@ flowchart TD
     CF[Cloudflare: DNS, CDN, HTTPS, DDoS]
     APP[Next.js App: Frontend + API Routes]
     AUTH[Ory Kratos: Auth]
-    STRIPE[Stripe Connect: Checkout, Splits, Payouts]
+    PADDLE[Paddle: Checkout, Splits, Payouts]
     WORKERS[Background Workers]
     DB[(PostgreSQL)]
     REDIS[(Redis: Queues + Cache)]
@@ -63,12 +63,12 @@ flowchart TD
 
     CF --> APP
     APP --> AUTH
-    APP --> STRIPE
+    APP --> PADDLE
     APP --> DB
     APP --> WORKERS
     WORKERS --> REDIS
     WORKERS --> NOTIF
-    STRIPE -.webhooks.-> WORKERS
+    PADDLE -.webhooks.-> WORKERS
 ```
 
 ## Update (2026-08-03): FastAPI Backend — Two-Service Architecture
@@ -81,7 +81,7 @@ flowchart TD
     FE[Next.js Frontend]
     BE[FastAPI Backend]
     AUTH[Ory Kratos: Auth]
-    STRIPE[Stripe Connect]
+    PADDLE[Paddle]
     WORKERS[Background Workers: Celery/RQ]
     DB[(PostgreSQL via SQLAlchemy)]
     REDIS[(Redis: Queues + Cache)]
@@ -89,11 +89,11 @@ flowchart TD
     CF --> FE
     FE -->|REST API calls| BE
     BE --> AUTH
-    BE --> STRIPE
+    BE --> PADDLE
     BE --> DB
     BE --> WORKERS
     WORKERS --> REDIS
-    STRIPE -.webhooks.-> BE
+    PADDLE -.webhooks.-> BE
 ```
 
 This means two deployable units, two environment-variable sets, and CORS between frontend and backend origins now genuinely matters (04. Security → API Security). See 06. Infrastructure for VPS/CI-CD updates reflecting this split.
@@ -110,4 +110,4 @@ This means two deployable units, two environment-variable sets, and CORS between
 
 ## Update (2026-08-04): Auth Provider Diagram Note
 
-The "AUTH" node in the diagram above is now Ory Kratos (04. Security → Authentication, superseding the earlier Clerk decision) — Ory Network (managed) for MVP, self-hosted Kratos at scale. Called from the FastAPI backend as a REST API, same as Stripe/Supabase — no change to the overall modular-monolith shape, just a swapped external identity provider.
+The "AUTH" node in the diagram above is now Ory Kratos (04. Security → Authentication, superseding the earlier Clerk decision) — Ory Network (managed) for MVP, self-hosted Kratos at scale. Called from the FastAPI backend as a REST API, same as Paddle/Supabase — no change to the overall modular-monolith shape, just a swapped external identity provider.

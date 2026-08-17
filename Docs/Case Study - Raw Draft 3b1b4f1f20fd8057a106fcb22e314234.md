@@ -58,10 +58,10 @@ My primary goals are to:
 - Clearly define and document workflows for business owners and creators
 - Build **scalable components and a unified design system** that works consistently across web and mobile platforms
 - Create detailed UX documentation covering:
-    - User research methods
-    - Affinity mapping and insight synthesis
-    - User behavior analysis
-    - Usability testing and validation
-    - Design decisions and trade-offs
+  - User research methods
+  - Affinity mapping and insight synthesis
+  - User behavior analysis
+  - Usability testing and validation
+  - Design decisions and trade-offs
 
 This case study aims to demonstrate a **real-world, system-level UX approach**, focusing on clarity, scalability, and usability rather than visual polish alone.

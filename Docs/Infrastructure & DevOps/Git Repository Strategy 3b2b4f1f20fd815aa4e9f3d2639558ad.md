@@ -10,7 +10,7 @@ How the codebase is organized in version control, and how changes flow through b
 
 ## Structure
 
-```
+```text
 sellvia/
   apps/
     frontend/     — Next.js + shadcn/ui + Tailwind
@@ -54,7 +54,7 @@ If the team grows enough that Frontend and Backend become separately-owned by di
 
 **Every feature branch is named with its service prefix**, so it's immediately clear what a branch touches without opening it:
 
-```
+```text
 feature/frontend/checkout-page-redesign
 feature/backend/payout-batching-job
 feature/backend/refund-clawback

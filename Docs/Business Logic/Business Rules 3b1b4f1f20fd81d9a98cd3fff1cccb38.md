@@ -32,15 +32,15 @@ The rules that govern valid state transitions and actions — the things that mu
 
 ## Payout Rules
 
-- **Payout threshold: $50** (decided 2026-08-03). Commission is credited to the creator's balance instantly per sale (via Stripe Connect split); the actual bank payout is triggered once the balance crosses $50 — see Money Flow for the instant-split vs. bank-payout-timing distinction.
+- **Payout threshold: $50** (decided 2026-08-03). Commission is credited to the creator's balance instantly per sale (via Paddle split); the actual bank payout is triggered once the balance crosses $50 — see Money Flow for the instant-split vs. bank-payout-timing distinction.
 - Both parties see the same receipt for every payout (amount, commission split, platform fee, timestamps) — this symmetry is a trust mechanism and should not be broken by showing merchants and creators different numbers.
 
 ## Multi-Currency (updated 2026-08-03: PKR removed)
 
 - Supported currencies: **USD, EUR, GBP.**
 - Merchant lists a product in their preferred currency.
-- All three are well-supported by standard processors (Stripe Connect handles payouts in USD/EUR/GBP cleanly) — no special payout-rail workaround needed for MVP.
-- PKR was considered and dropped for now — most processors, including Stripe Connect, don't support direct PKR payouts to connected accounts, which would have required a separate local payout partner. Can be revisited post-MVP if there's real demand from Pakistani creators/merchants.
+- All three are well-supported by standard processors (Paddle handles payouts in USD/EUR/GBP cleanly) — no special payout-rail workaround needed for MVP.
+- PKR was considered and dropped for now — most processors, including Paddle, don't support direct PKR payouts to connected accounts, which would have required a separate local payout partner. Can be revisited post-MVP if there's real demand from Pakistani creators/merchants.
 
 ## Open Questions
 

@@ -6,7 +6,7 @@ Separating local development, staging, and production — directly from the earl
 
 ## Environments
 
-| Environment | Domain | Database | Stripe mode | Purpose |
+| Environment | Domain | Database | Paddle mode | Purpose |
 | --- | --- | --- | --- | --- |
 | Local | [localhost:3000](http://localhost:3000) | sellvia_local | Test | Individual development |
 | Staging | [staging.wesellvia.com](http://staging.wesellvia.com) | sellvia_stage | Test | Pre-production testing, near-exact copy of prod |
@@ -16,12 +16,12 @@ Separating local development, staging, and production — directly from the earl
 
 - Never share a database between environments
 - Separate file storage buckets per environment
-- Stripe test mode for Local/Staging, live mode only for Production — this is especially critical now that SellVia is a real hosted-checkout payments system, not just a tracking tool; a test/live mixup here would mean real cards charged in a test environment or vice versa
+- Paddle test mode for Local/Staging, live mode only for Production — this is especially critical now that SellVia is a real hosted-checkout payments system, not just a tracking tool; a test/live mixup here would mean real cards charged in a test environment or vice versa
 - Separate email sending (no risk of emailing real customers during staging tests)
 
 ## Deployment Flow
 
-```
+```text
 feature/* branch → develop branch → Staging → main branch → Production
 ```
 
@@ -29,7 +29,7 @@ Nothing goes straight to Production. Every release passes through Staging first,
 
 ## Configuration
 
-Environment variables control all environment-specific behavior (`DATABASE_URL`, `STRIPE_SECRET_KEY`, `CLERK_SECRET_KEY`, `PAYMENT_MODE`, etc.) — code itself never branches on environment name.
+Environment variables control all environment-specific behavior (`DATABASE_URL`, `PADDLE_API_KEY`, `CLERK_SECRET_KEY`, `PAYMENT_MODE`, etc.) — code itself never branches on environment name.
 
 ## Open Questions
 

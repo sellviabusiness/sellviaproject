@@ -8,7 +8,7 @@ A configurable engine that enforces data retention per category, maps those peri
 
 Retention rules live in a `retention_policies` table, not scattered as hardcoded logic across the codebase — a policy change (once legal confirms real numbers) is a data update, not a code change or redeploy.
 
-```
+```text
 retention_policies
   id
   category            (e.g. "financial_records", "user_pii", "audit_logs")
@@ -42,7 +42,7 @@ A Celery job (02. Background Jobs) runs on a schedule (e.g. daily), walks every 
 
 Every retention sweep logs its own execution to a `retention_audit_log`:
 
-```
+```text
 retention_audit_log
   id
   policy_id           (FK -> retention_policies)
@@ -93,7 +93,7 @@ flowchart TD
 - **Sessions (Ory Kratos):** fully revoked, not retained
 - **Uploaded files (product images, profile photos):** deleted from object storage, except where a product image is still referenced by an active Campaign another party depends on — flagged as a genuine edge case not yet resolved (see Open Questions)
 
-## Cascading to Third Parties — Not Automatic Everywheren**This is the part most likely to be incomplete without explicit per-provider work:**n- **Ory Kratos:** identity deletion via its own API — straightforwardn- **Stripe Connect:** cannot simply delete an account with payment history — Stripe's own retention rules apply independently of SellVia's; the SellVia-side profile anonymizes, but Stripe-side KYC/transaction records follow Stripe's own policy, outside SellVia's controln- **Email ESPs:** address moves to the suppression list (04. Data Retention Policy Engine's existing "never purged" rule for suppression data) — deliberately NOT deleted, since removing it risks re-emailing someone who explicitly leftn- **AI/embeddings provider:** depends on the specific provider's own data handling — not yet verified per-provider, flagged as an open itemnn## Audit TrailnEvery deletion request and its outcome logged to `retention_audit_log` (04. Data Retention Policy Engine's existing audit mechanism) — proves the pipeline actually ran, not just that a policy exists.nn## Open Questionsn- Grace period length (14 days) — working default, needs confirmationn- Product image handling when still referenced by an active Campaign after the owning Creator/Merchant requests deletion — genuinely unresolvedn- Per-provider data deletion verification (AI/embeddings provider specifically) — not yet done
+## Cascading to Third Parties — Not Automatic Everywheren**This is the part most likely to be incomplete without explicit per-provider work:**n- **Ory Kratos:** identity deletion via its own API — straightforwardn- **Paddle:** cannot simply delete an account with payment history — Paddle's own retention rules apply independently of SellVia's; the SellVia-side profile anonymizes, but Paddle-side KYC/transaction records follow Paddle's own policy, outside SellVia's controln- **Email ESPs:** address moves to the suppression list (04. Data Retention Policy Engine's existing "never purged" rule for suppression data) — deliberately NOT deleted, since removing it risks re-emailing someone who explicitly leftn- **AI/embeddings provider:** depends on the specific provider's own data handling — not yet verified per-provider, flagged as an open itemnn## Audit TrailnEvery deletion request and its outcome logged to `retention_audit_log` (04. Data Retention Policy Engine's existing audit mechanism) — proves the pipeline actually ran, not just that a policy exists.nn## Open Questionsn- Grace period length (14 days) — working default, needs confirmationn- Product image handling when still referenced by an active Campaign after the owning Creator/Merchant requests deletion — genuinely unresolvedn- Per-provider data deletion verification (AI/embeddings provider specifically) — not yet done
 
 ## Update (2026-08-07): RESOLVED — Immediate Removal, Placeholder Shown
 

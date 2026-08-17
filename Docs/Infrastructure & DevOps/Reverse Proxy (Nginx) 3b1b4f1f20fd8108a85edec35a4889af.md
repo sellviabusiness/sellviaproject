@@ -6,7 +6,7 @@ How Nginx routes traffic to the application — the piece sitting between Cloudf
 
 ## Role
 
-```
+```text
 Cloudflare → Nginx → Next.js app (port 3000, internal)
 ```
 

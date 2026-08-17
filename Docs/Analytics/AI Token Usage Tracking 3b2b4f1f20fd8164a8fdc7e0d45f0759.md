@@ -10,14 +10,14 @@ Every call inside the `ai_services` module (matching/embeddings, screening, copy
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| id | uuid, PK |  |
+| id | uuid, PK | |
 | feature | enum | matching / screening / copy_assist |
-| tokens_in | integer |  |
-| tokens_out | integer |  |
+| tokens_in | integer | |
+| tokens_out | integer | |
 | cost_cents | integer | computed from provider's per-token pricing at call time |
 | related_user_id | uuid, nullable | which Merchant/Creator this call was for, if applicable |
 | related_entity_type | text, nullable | e.g. "application", "campaign" — what triggered the call |
-| created_at | timestamptz |  |
+| created_at | timestamptz | |
 
 ## Why Per-Call, Not Aggregated at Write Time
 

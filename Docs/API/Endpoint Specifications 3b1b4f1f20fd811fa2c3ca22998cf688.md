@@ -25,7 +25,7 @@ The concrete endpoint list — direct implementation of 03. Database's tables an
 
 - `GET /go/:slug` — the redirect endpoint an AffiliateLink resolves to (public, no auth) — logs the click, redirects to the merchant's product page with attribution reference attached
 - `GET /sales` — Merchant/Creator, scoped to their own
-- Sale status transitions happen via the Stripe webhook handler, not a direct client-facing endpoint (per 02. Event-Driven Architecture)
+- Sale status transitions happen via the Paddle webhook handler, not a direct client-facing endpoint (per 02. Event-Driven Architecture)
 
 ## Payouts
 
@@ -60,7 +60,7 @@ The routes above are the "what" — here's the "why" per group, so a route's pur
 
 **`POST /jobs/export` and friends** exist specifically so heavy operations never block a request cycle (02. Async Job Pattern & Idempotency) — this group's entire reason for existing is UX and reliability, not new business logic.
 
-## Open Questions
+## Open Questions (Update)
 
 None — rationale is now explicit per group rather than implied by the route list alone.
 

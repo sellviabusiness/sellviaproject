@@ -11,7 +11,7 @@ The actual server setup steps — directly from the earlier conversation, formal
 
 ## Setup Sequence
 
-```
+```text
 Buy VPS
   ↓
 Install Ubuntu

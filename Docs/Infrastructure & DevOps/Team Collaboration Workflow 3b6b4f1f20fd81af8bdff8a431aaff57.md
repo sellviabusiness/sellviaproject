@@ -49,7 +49,7 @@ The frontend/testing half of the team owns:
 - [ ]  Notion workspace (full documentation)
 - [ ]  Staging environment credentials
 - [ ]  Design files (Figma or equivalent), if applicable
-- [ ]  **Never** Production secrets or live Stripe keys unless specifically needed for their role
+- [ ]  **Never** Production secrets or live Paddle keys unless specifically needed for their role
 
 ## Communication
 

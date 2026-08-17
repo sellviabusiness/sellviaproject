@@ -9,8 +9,8 @@ Knowing when something's wrong before a user reports it — especially important
 - CPU / memory / disk usage on the VPS
 - Application crashes / process restarts
 - Database connection health (managed Postgres provider's own monitoring, plus app-level health checks)
-- **Stripe webhook failures** — new addition given the payments architecture: repeated webhook signature failures or processing errors should alert immediately, since this is the mechanism that keeps Sale/Payout state accurate
-- **Reconciliation mismatches** (05. Payments → Reconciliation) — any discrepancy between internal records and Stripe should trigger an alert, not just get logged
+- **Paddle webhook failures** — new addition given the payments architecture: repeated webhook signature failures or processing errors should alert immediately, since this is the mechanism that keeps Sale/Payout state accurate
+- **Reconciliation mismatches** (05. Payments → Reconciliation) — any discrepancy between internal records and Paddle should trigger an alert, not just get logged
 
 ## Approach
 
@@ -30,8 +30,8 @@ A hosted monitoring/alerting service (e.g. a standard APM/uptime tool) rather th
 - Alerting: **SMS/call**, not just email — Better Uptime supports this directly, which matters specifically because an email alert can sit unread while an outage continues; a text/call is what actually wakes someone up
 - Runs on Better Uptime's own infrastructure, separate from SellVia's stack entirely — same reasoning already established for the status page (a monitoring tool hosted on the thing it's monitoring is useless exactly when needed most)
 
-**What it monitors:** application health endpoint, public marketing site, and can be extended to check Stripe/Ory Kratos/Supabase reachability specifically if a more granular "what exactly is down" signal is wanted later — starting with the core health check is sufficient for MVP.
+**What it monitors:** application health endpoint, public marketing site, and can be extended to check Paddle/Ory Kratos/Supabase reachability specifically if a more granular "what exactly is down" signal is wanted later — starting with the core health check is sufficient for MVP.
 
-## Open Questions
+## Open Questions (Update)
 
 - None blocking — tool choice made; account setup is an implementation step, not a design decision.

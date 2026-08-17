@@ -6,7 +6,7 @@ How code moves from a developer's machine to Production safely.
 
 ## Pipeline
 
-```
+```text
 Push to feature branch
   ↓
 Open PR into develop
@@ -26,7 +26,7 @@ GitHub Actions (per the original infrastructure conversation) — handles the au
 
 ## Deploy Mechanics (per original conversation, adapted for the current stack)
 
-```
+```text
 git pull
   ↓
 npm install

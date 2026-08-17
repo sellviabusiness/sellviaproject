@@ -29,7 +29,7 @@ From the raw data doc, confirmed as still current:
 - Affiliate link generation + click tracking
 - Basic sales tracking and attribution
 - Simple dashboards (merchant + creator)
-- Payout mechanism (PayPal / bank transfer named in source doc — **needs confirming against the Stripe Connect option raised in the infra conversation**)
+- Payout mechanism (PayPal / bank transfer named in source doc — **needs confirming against the Paddle option raised in the infra conversation**)
 
 **Explicitly deferred post-MVP:** complex analytics, AI-based matching/screening (see 02. Technical Architecture → AI Services, once written), and **external-site checkout tracking** (redirect + webhook/pixel attribution for merchants who want to keep their own checkout — decided 2026-08-03, see Money Flow). MVP is SellVia Checkout only — every sale happens on SellVia's hosted checkout, no exceptions.
 

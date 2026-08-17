@@ -4,7 +4,7 @@
 
 What rules the database itself enforces, beyond what the application layer checks — defense in depth for a system handling real money.
 
-## Constraints
+## Enforced Constraints
 
 - **Non-negative amounts:** `CHECK (amount_cents >= 0)` on offers.price_cents, commissions.amount_cents, platform_fees.amount_cents, payouts.amount_cents — catches bugs before they become financial discrepancies
 - **Commission rate bounds:** even though there's no platform-enforced business range (01. Business Logic → Business Rules), a sanity-check constraint like `CHECK (commission_rate > 0 AND commission_rate <= 1)` still belongs at the DB level, to catch obvious data-entry bugs (e.g. someone accidentally storing "20" instead of "0.20") — this is a data-integrity constraint, not a business-rule constraint, and the two shouldn't be confused

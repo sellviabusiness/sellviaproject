@@ -20,19 +20,19 @@ Every boundary gets its own catch-all, because an error that escapes one silentl
 | --- | --- | --- |
 | **API routes** | Raw exception serialized straight into the HTTP response — the classic stack-trace leak | Global FastAPI exception handler catches everything, logs full detail (Layer 2), returns the mapped safe message (Layer 1) |
 | **Background jobs** (Celery) | A task fails silently, work is just... not done, with no visibility | Every task wrapped with logging + the existing retry-with-backoff/dead-letter handling (02. Background Jobs) — a failed job is now visible, not silent |
-| **Webhook receivers** (Stripe) | An exception mid-processing means a Sale never gets marked verified, and nothing tells anyone | Full try/catch around webhook handler logic; a failure here gets logged AND alerted (not just logged) since it directly risks 05. Payments → Reconciliation catching a real discrepancy later instead of it being caught immediately |
-| **Payment callbacks** (payment confirmation flow) | Worst case: Stripe charge succeeds, but the DB write recording it fails — money moved, system doesn't know | Highest-scrutiny boundary in the whole list. Logged with full context AND immediately alerted, not batched — this is exactly the scenario 05. Payments → Reconciliation exists to catch as a backstop, but the goal here is catching it in real time, before reconciliation ever needs to |
+| **Webhook receivers** (Paddle) | An exception mid-processing means a Sale never gets marked verified, and nothing tells anyone | Full try/catch around webhook handler logic; a failure here gets logged AND alerted (not just logged) since it directly risks 05. Payments → Reconciliation catching a real discrepancy later instead of it being caught immediately |
+| **Payment callbacks** (payment confirmation flow) | Worst case: Paddle charge succeeds, but the DB write recording it fails — money moved, system doesn't know | Highest-scrutiny boundary in the whole list. Logged with full context AND immediately alerted, not batched — this is exactly the scenario 05. Payments → Reconciliation exists to catch as a backstop, but the goal here is catching it in real time, before reconciliation ever needs to |
 
 ## The Logging Pipeline
 
-**Recommend Sentry** (or equivalent), not a custom-built log store — consistent with the pattern used throughout this build (Stripe, Ory Kratos, Supabase, the status page tool): use a managed service for a problem that's already been solved well, rather than building searchable log infrastructure from scratch.
+**Recommend Sentry** (or equivalent), not a custom-built log store — consistent with the pattern used throughout this build (Paddle, Ory Kratos, Supabase, the status page tool): use a managed service for a problem that's already been solved well, rather than building searchable log infrastructure from scratch.
 
 **Captured per error (all private, Admin-only access):**
 
 - Timestamp
 - User session context (which user, which role — tied to 03. Database → Audit Log Design's `initiated_via` concept, so an error can be traced to whether it came from a human, the AI Console, or a webhook)
 - Route/endpoint
-- Input payload — **scrubbed before logging**, not raw: never log passwords, session tokens, or full card data (moot for cards specifically since Stripe Elements means SellVia never sees raw card data at all, per 04. Security → Encryption) — email addresses and other PII get scrubbed or hashed depending on what's actually needed for debugging
+- Input payload — **scrubbed before logging**, not raw: never log passwords, session tokens, or full card data (moot for cards specifically since Paddle Checkout means SellVia never sees raw card data at all, per 04. Security → Encryption) — email addresses and other PII get scrubbed or hashed depending on what's actually needed for debugging
 - Full stack trace
 - Release/deploy version — ties directly to 06. Git Repository Strategy's semantic version tags on every Production deploy, so an error can be pinned to exactly which release introduced it
 

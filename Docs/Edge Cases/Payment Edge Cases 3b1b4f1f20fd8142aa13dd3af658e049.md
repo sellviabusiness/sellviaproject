@@ -7,9 +7,9 @@ Money-specific edge cases beyond the core Refund/Chargeback docs (05. Payments).
 ## Cases
 
 - **Partial refund** — flagged as a genuine open gap in Refund Handling (05. Payments): proportional commission reduction recommended but not confirmed.
-- **Sale in one currency, creator's payout account set up for another** — e.g. a Creator based in the EU promoting a merchant's GBP-priced offer. Handled by Stripe's cross-currency payout support (per Money Flow's FX default), but the exact rate/timing shown to the Creator on their dashboard needs to be clear about conversion, or it will look like a discrepancy/bug to them.
+- **Sale in one currency, creator's payout account set up for another** — e.g. a Creator based in the EU promoting a merchant's GBP-priced offer. Handled by Paddle's cross-currency payout support (per Money Flow's FX default), but the exact rate/timing shown to the Creator on their dashboard needs to be clear about conversion, or it will look like a discrepancy/bug to them.
 - **Refund happens after a creator has already withdrawn below the $50 remaining balance** — the clawback (Commission Engine's 14-day rule) has nothing left to deduct from. This is the "real loss" scenario already flagged in Money Flow as something the platform needs to accept and size, not solve away.
-- **Duplicate/replayed Stripe webhook causes a double-credit attempt** — prevented by idempotent processing (02. Event-Driven Architecture), but worth calling out here as the specific financial edge case that requirement exists to prevent.
+- **Duplicate/replayed Paddle webhook causes a double-credit attempt** — prevented by idempotent processing (02. Event-Driven Architecture), but worth calling out here as the specific financial edge case that requirement exists to prevent.
 - **Chargeback dispute fee** — flagged as unresolved in Chargebacks (05. Payments): who absorbs it isn't decided.
 
 ## Open Questions

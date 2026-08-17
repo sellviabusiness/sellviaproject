@@ -15,7 +15,7 @@ How the merchant dashboard, creator dashboard, and public-facing pages are built
 1. **Public marketing site** ([wesellvia.com](http://wesellvia.com)) — already live, per the earlier read-through: hero, concept walkthrough, roadmap, FAQ, waitlist form
 2. **Merchant dashboard** — campaign creation/management, application review, sales/analytics view, payout history
 3. **Creator dashboard** — campaign discovery/browse, application status, link management, earnings/balance view
-4. **Merchant billing card collection** — a Stripe Elements form for the merchant to add/update their card on file for periodic billing (reversed 2026-08-07, 01. Money Flow) — this is the only Stripe Elements surface remaining on SellVia's own frontend; there is no follower-facing checkout page, since purchases happen entirely on the merchant's own website
+4. **Merchant billing card collection** — a Paddle Checkout form for the merchant to add/update their card on file for periodic billing (reversed 2026-08-07, 01. Money Flow) — this is the only Paddle Checkout surface remaining on SellVia's own frontend; there is no follower-facing checkout page, since purchases happen entirely on the merchant's own website
 5. **Admin panel** — moderation queue, campaign vetting, refund/dispute handling (see 10. Operations, not yet written, for the operational workflows this supports)
 
 ## Design System Constraints (from [design.md](http://design.md) — binding, not optional)

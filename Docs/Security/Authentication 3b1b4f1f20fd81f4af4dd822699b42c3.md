@@ -10,7 +10,7 @@ How users prove who they are, and how that identity maps onto Merchant/Creator/A
 
 **Why Kratos over Authentik** (the other option considered): Kratos is purpose-built for consumer-facing identity (signup, login, sessions, MFA, password reset) — exactly SellVia's Merchant/Creator/Admin use case. Authentik leans toward enterprise internal SSO (a self-hosted Okta alternative) — heavier than needed here.
 
-**Why this doesn't repeat the Better Auth problem:** Kratos is a pure REST/JSON API, not a language-specific library. The FastAPI backend calls it over HTTP like any other external service (Stripe, Supabase) — no TypeScript coupling, no separate Node service required.
+**Why this doesn't repeat the Better Auth problem:** Kratos is a pure REST/JSON API, not a language-specific library. The FastAPI backend calls it over HTTP like any other external service (Paddle, Supabase) — no TypeScript coupling, no separate Node service required.
 
 ## Deployment: Ory Network First, Self-Hosted Later
 

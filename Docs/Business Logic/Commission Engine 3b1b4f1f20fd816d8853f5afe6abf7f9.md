@@ -6,11 +6,11 @@ The exact math and timing of how a sale becomes a commission owed — plus the p
 
 ## REVERSED 2026-08-07: No Live Split, Recorded as Owed
 
-Previously described an instant Stripe Connect split at time of sale. **Superseded** — SellVia no longer processes the payment (01. Money Flow, reversed 2026-08-07), so there is no live transaction to split. Commission and platform fee are now **calculated and recorded as owed** the moment a merchant-reported sale is accepted, then collected via periodic billing.
+Previously described an instant Paddle split at time of sale. **Superseded** — SellVia no longer processes the payment (01. Money Flow, reversed 2026-08-07), so there is no live transaction to split. Commission and platform fee are now **calculated and recorded as owed** the moment a merchant-reported sale is accepted, then collected via periodic billing.
 
 ## The Three-Way Math (unchanged arithmetic, changed mechanism)
 
-```
+```text
 Sale.amount (as reported by the merchant)
   → Creator commission = Sale.amount × locked commission rate
   → Platform fee = Sale.amount × 2%
@@ -35,7 +35,7 @@ Worked example, same reference numbers as before:
 
 ## Refund Clawback — Still Applies, Different Mechanism
 
-Creator commission is never clawed back (confirmed 2026-08-07) — still true. A reported refund now adjusts what's billed to the merchant in a future cycle, rather than reversing a Stripe transfer that no longer exists.
+Creator commission is never clawed back (confirmed 2026-08-07) — still true. A reported refund now adjusts what's billed to the merchant in a future cycle, rather than reversing a Paddle transfer that no longer exists.
 
 ## What's Genuinely Harder Now
 

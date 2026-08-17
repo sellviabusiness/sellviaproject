@@ -13,7 +13,7 @@ REST over GraphQL for MVP — simpler to reason about, easier to secure per-endp
 - Resource-based URLs: `/campaigns`, `/applications`, `/sales`, `/payouts`
 - Role-scoped by default: a Merchant's `/campaigns` only returns their own; Admin has a separate `/admin/*` namespace with elevated access, matching the Permission Matrix (01. Business Logic)
 - Pagination on all list endpoints (campaigns, applications, sales) — these will grow unbounded over time
-- Idempotency keys required on any endpoint that touches Stripe (checkout creation, payout triggers) to avoid double-charging on retry — critical given this is a payments system, not optional
+- Idempotency keys required on any endpoint that touches Paddle (checkout creation, payout triggers) to avoid double-charging on retry — critical given this is a payments system, not optional
 
 ## Versioning
 

@@ -8,7 +8,7 @@ How email is organized, authenticated, monitored, and what actually gets sent �
 
 **Decided: separate sending subdomains of [wesellvia.com](http://wesellvia.com), not fully unrelated domains** — gets the requested reputation isolation between email types without losing brand recognition in the "From" address, which unrelated domains can actually cost you (an email from a domain that doesn't match your brand can itself look more suspicious to spam filters and recipients, working against the goal rather than for it).
 
-```
+```text
 mail.wesellvia.com     → transactional (receipts, payouts, password/security)
 news.wesellvia.com     → marketing (waitlist updates, product news)
 ```
@@ -53,7 +53,7 @@ For real reputation isolation, not just cosmetic domain separation: **a transact
 ## Deliverability Monitoring — Where It Actually Lands, Not Just "Sent"
 
 - **SPF, DKIM, DMARC** configured correctly per subdomain — the baseline without which inbox placement is unreliable regardless of ESP quality
-- **Bounce and complaint webhooks** from each ESP, processed the same way Stripe webhooks are (signature-verified, enqueued, processed idempotently — 02. Event-Driven Architecture's pattern reused here, not reinvented)
+- **Bounce and complaint webhooks** from each ESP, processed the same way Paddle webhooks are (signature-verified, enqueued, processed idempotently — 02. Event-Driven Architecture's pattern reused here, not reinvented)
 - **DMARC aggregate reports (rua)** — shows actual pass/fail rates and catches any spoofing attempts using your domain, monitored on an ongoing basis, not just checked once at setup
 - **Periodic inbox-placement testing** (tools like GlockApps or mail-tester) — actually verifies landing in Gmail/Outlook/etc. inbox vs. spam, run before launch and periodically after, not assumed to stay correct forever once configured
 
